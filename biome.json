@@ -14,7 +14,8 @@
       "!**/node_modules",
       "!**/CHANGELOG.md",
       "!**/package-lock.json",
-      "!**/tests/golden"
+      "!**/tests/golden",
+      "!**/.release-please-manifest.json"
     ]
   },
   "formatter": {
