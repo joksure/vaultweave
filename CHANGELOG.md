@@ -5,7 +5,7 @@
 
 ### Features
 
-* add incremental Notion backup with S3 target ([792f3fd](https://github.com/joksure/vaultweave/commit/792f3fd133687564e11b266ffacdc826c8ab36a4))
+* add incremental Notion backup with S3 target ([6465e4c](https://github.com/joksure/vaultweave/commit/6465e4cdaaf2f61720b9c4a49d1c89f32eff6ecc))
 
 ## Changelog
 
