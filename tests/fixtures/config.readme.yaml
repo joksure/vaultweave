@@ -1,0 +1,9 @@
+token: ${SHEAF_TOKEN}        # env expansion supported
+out: ./sheaf-backup
+git: true                     # auto-commit per run
+ignore:
+  - "Private/**"              # glob paths excluded from sync
+redact: ['\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b']  # strip emails from output
+notify:
+  on_error: webhook:${ERROR_WEBHOOK}
+  on_success: silent

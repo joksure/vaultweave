@@ -1,0 +1,24 @@
+# dependencies & build output
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# secrets & local env — tokens must never be committed
+.env
+.env.*
+!.env.example
+
+# notion-portable runtime artefacts (state DB and local backups)
+state.sqlite
+*.sqlite-journal
+.notion-portable/
+notion-backup/
+my-notion/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
