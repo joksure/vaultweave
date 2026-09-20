@@ -2,7 +2,7 @@
  * Deterministic builders for API-shaped Notion fixtures.
  *
  * These are *synthetic* (hand-modelled on the documented API 2025-09-03 payloads), not
- * recordings of a real workspace. Validate against a real one with `sheaf extract`.
+ * recordings of a real workspace. Validate against a real one with `vaultweave extract`.
  */
 import type { JsonObject } from "../../src/core/extractor/json.js";
 

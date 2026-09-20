@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" role="img" aria-labelledby="why-title">
+  <title id="why-title">Why vaultweave — the problems it solves</title>
+  <defs>
+    <linearGradient id="wbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1e1a"/>
+      <stop offset="1" stop-color="#0c1512"/>
+    </linearGradient>
+    <linearGradient id="prob-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2a1414"/>
+      <stop offset="1" stop-color="#1e1010"/>
+    </linearGradient>
+    <linearGradient id="sol-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#131f1c"/>
+      <stop offset="1" stop-color="#0f1a17"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="220" fill="url(#wbg)" rx="12"/>
+
+  <!-- Left: Problems -->
+  <rect x="14" y="14" width="410" height="192" rx="10" fill="url(#prob-grad)"/>
+  <rect x="14" y="14" width="410" height="192" rx="10" fill="none" stroke="#7a3030" stroke-width="1.5"/>
+
+  <text x="34" y="44" fill="#c87070" font-family="Arial, Helvetica, sans-serif"
+        font-size="13" font-weight="700" letter-spacing="2">NOTION BACKUP PROBLEMS</text>
+
+  <g font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#8f7070">
+    <text x="34" y="74">
+      <tspan fill="#e07070">✗</tspan>  No scheduled backups — Notion's answer: "Not at the moment."
+    </text>
+    <text x="34" y="101">
+      <tspan fill="#e07070">✗</tspan>  Export link expires after 7 days · up to 30h to generate
+    </text>
+    <text x="34" y="128">
+      <tspan fill="#e07070">✗</tspan>  Trash: 7d (Free) / 30d (Plus) / 90d (Business) — then gone
+    </text>
+    <text x="34" y="155">
+      <tspan fill="#e07070">✗</tspan>  Existing OSS tools use token_v2 cookies that break
+    </text>
+    <text x="34" y="182">
+      <tspan fill="#e07070">✗</tspan>  Large workspaces sometimes fail entirely
+    </text>
+  </g>
+
+  <!-- Arrow between -->
+  <g transform="translate(432, 92)">
+    <text x="0" y="24" font-size="34" fill="#55d6be">→</text>
+  </g>
+
+  <!-- Right: Solutions -->
+  <rect x="476" y="14" width="410" height="192" rx="10" fill="url(#sol-grad)"/>
+  <rect x="476" y="14" width="410" height="192" rx="10" fill="none" stroke="#2a6b5a" stroke-width="1.5"/>
+
+  <text x="496" y="44" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+        font-size="13" font-weight="700" letter-spacing="2">VAULTWEAVE GIVES YOU</text>
+
+  <g font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6b9b8f">
+    <text x="496" y="74">
+      <tspan fill="#55d6be">✔</tspan>  Automated, scheduled sync via cron / daemon / CI
+    </text>
+    <text x="496" y="101">
+      <tspan fill="#55d6be">✔</tspan>  Portable Markdown + CSV + JSON — no expiry, ever
+    </text>
+    <text x="496" y="128">
+      <tspan fill="#55d6be">✔</tspan>  Rolling Git history — every sync is a commit + rollback
+    </text>
+    <text x="496" y="155">
+      <tspan fill="#55d6be">✔</tspan>  Official Notion API — no cookies, no scraping
+    </text>
+    <text x="496" y="182">
+      <tspan fill="#55d6be">✔</tspan>  Open in any text editor if Notion disappeared tomorrow
+    </text>
+  </g>
+</svg>

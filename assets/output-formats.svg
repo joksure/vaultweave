@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" role="img" aria-labelledby="out-title">
+  <title id="out-title">vaultweave output formats — Markdown, CSV, JSON, assets</title>
+  <defs>
+    <linearGradient id="obg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f1e1a"/>
+      <stop offset="1" stop-color="#0c1512"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="320" fill="url(#obg)" rx="12"/>
+
+  <text x="450" y="36" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+        font-size="17" font-weight="700" text-anchor="middle" letter-spacing="2">OUTPUT FORMATS</text>
+
+  <!-- Panel 1: Markdown -->
+  <g transform="translate(14, 55)">
+    <rect width="208" height="248" rx="10" fill="#0c1815" stroke="#55d6be" stroke-width="1.5"/>
+    <!-- Header -->
+    <rect width="208" height="36" rx="10" fill="#152720"/>
+    <rect x="0" y="22" width="208" height="14" fill="#152720"/>
+    <text x="24" y="24" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="12" font-weight="700" letter-spacing="1">📄 MARKDOWN</text>
+    <!-- Content -->
+    <g font-family="'Courier New', monospace" font-size="11">
+      <text x="14" y="58" fill="#4a8a78">---</text>
+      <text x="14" y="74" fill="#8fbfb4">title: <tspan fill="#e9f5f1">Q3 Roadmap</tspan></text>
+      <text x="14" y="90" fill="#8fbfb4">notion_id: <tspan fill="#6b9b8f">abc123</tspan></text>
+      <text x="14" y="106" fill="#8fbfb4">last_edited: <tspan fill="#6b9b8f">2026-09</tspan></text>
+      <text x="14" y="122" fill="#4a8a78">---</text>
+
+      <text x="14" y="148" fill="#e9f5f1" font-weight="bold"># Q3 Roadmap</text>
+      <text x="14" y="166" fill="#8fbfb4">Ship vaultweave v1.0</text>
+      <text x="14" y="182" fill="#8fbfb4">before the quarter ends.</text>
+
+      <text x="14" y="208" fill="#55d6be">## Goals</text>
+      <text x="14" y="224" fill="#8fbfb4">- MCP server</text>
+      <text x="14" y="240" fill="#8fbfb4">- GCS target</text>
+    </g>
+  </g>
+
+  <!-- Panel 2: CSV -->
+  <g transform="translate(234, 55)">
+    <rect width="208" height="248" rx="10" fill="#0c1815" stroke="#55d6be" stroke-width="1.5"/>
+    <rect width="208" height="36" rx="10" fill="#152720"/>
+    <rect x="0" y="22" width="208" height="14" fill="#152720"/>
+    <text x="14" y="24" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="12" font-weight="700" letter-spacing="1">📊 CSV</text>
+    <g font-family="'Courier New', monospace" font-size="10.5">
+      <text x="10" y="58" fill="#4a8a78">Name,Status,Owner</text>
+      <text x="10" y="76" fill="#8fbfb4">Ship MCP,</text>
+      <text x="10" y="90" fill="#8fbfb4">  <tspan fill="#55d6be">In Progress</tspan>,Darr</text>
+      <text x="10" y="108" fill="#8fbfb4">GCS target,</text>
+      <text x="10" y="122" fill="#8fbfb4">  <tspan fill="#f0b45b">Backlog</tspan>,TBD</text>
+      <text x="10" y="140" fill="#8fbfb4">Dashboard,</text>
+      <text x="10" y="154" fill="#8fbfb4">  <tspan fill="#4a8a78">Done</tspan>,Team</text>
+
+      <line x1="10" y1="170" x2="196" y2="170" stroke="#1c2f28" stroke-width="1"/>
+      <text x="10" y="186" fill="#4a6b60">Relations preserved</text>
+      <text x="10" y="202" fill="#4a6b60">as IDs + resolved</text>
+      <text x="10" y="218" fill="#4a6b60">map in db.json</text>
+    </g>
+  </g>
+
+  <!-- Panel 3: JSON -->
+  <g transform="translate(454, 55)">
+    <rect width="208" height="248" rx="10" fill="#0c1815" stroke="#55d6be" stroke-width="1.5"/>
+    <rect width="208" height="36" rx="10" fill="#152720"/>
+    <rect x="0" y="22" width="208" height="14" fill="#152720"/>
+    <text x="14" y="24" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="12" font-weight="700" letter-spacing="1">{ } JSON</text>
+    <g font-family="'Courier New', monospace" font-size="10.5">
+      <text x="10" y="56" fill="#4a8a78">{</text>
+      <text x="10" y="72" fill="#8fbfb4">  <tspan fill="#f0b45b">"schema"</tspan>: {</text>
+      <text x="10" y="88" fill="#6b9b8f">    "Name": "title",</text>
+      <text x="10" y="104" fill="#6b9b8f">    "Status": "select"</text>
+      <text x="10" y="120" fill="#8fbfb4">  },</text>
+      <text x="10" y="136" fill="#8fbfb4">  <tspan fill="#f0b45b">"rows"</tspan>: [</text>
+      <text x="10" y="152" fill="#6b9b8f">    {"Name":"Ship...</text>
+      <text x="10" y="168" fill="#6b9b8f">     "Status":"Done"</text>
+      <text x="10" y="184" fill="#6b9b8f">    }</text>
+      <text x="10" y="200" fill="#8fbfb4">  ]</text>
+      <text x="10" y="216" fill="#4a8a78">}</text>
+    </g>
+  </g>
+
+  <!-- Panel 4: Assets -->
+  <g transform="translate(674, 55)">
+    <rect width="212" height="248" rx="10" fill="#0c1815" stroke="#f0b45b" stroke-width="1.5"/>
+    <rect width="212" height="36" rx="10" fill="#1e1d10"/>
+    <rect x="0" y="22" width="212" height="14" fill="#1e1d10"/>
+    <text x="14" y="24" fill="#f0b45b" font-family="Arial, Helvetica, sans-serif"
+          font-size="12" font-weight="700" letter-spacing="1">🖼 ASSETS</text>
+    <g font-family="'Courier New', monospace" font-size="10.5">
+      <text x="10" y="56" fill="#4a6b60">my-backup/</text>
+      <text x="10" y="72" fill="#8fbfb4">├── pages/</text>
+      <text x="10" y="88" fill="#6b9b8f">│   └── q3-roadmap.md</text>
+      <text x="10" y="104" fill="#8fbfb4">├── databases/</text>
+      <text x="10" y="120" fill="#6b9b8f">│   ├── tasks.csv</text>
+      <text x="10" y="136" fill="#6b9b8f">│   └── tasks.json</text>
+      <text x="10" y="152" fill="#8fbfb4">└── assets/</text>
+      <text x="10" y="168" fill="#f0b45b">    ├── cover.png</text>
+      <text x="10" y="184" fill="#f0b45b">    ├── diagram.pdf</text>
+      <text x="10" y="200" fill="#f0b45b">    └── logo.svg</text>
+      <text x="10" y="228" fill="#4a6b60">re-hosted · fetched</text>
+    </g>
+  </g>
+</svg>

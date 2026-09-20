@@ -53,8 +53,8 @@ export async function resolveSettings(
 ): Promise<ResolvedSettings> {
   const config = await loadConfig(opts.config, env);
 
-  const token = opts.token ?? config.token ?? env.SHEAF_TOKEN;
-  if (!token) throw new ConfigError("No Notion token found. Set SHEAF_TOKEN or pass --token.");
+  const token = opts.token ?? config.token ?? env.VAULTWEAVE_TOKEN;
+  if (!token) throw new ConfigError("No Notion token found. Set VAULTWEAVE_TOKEN or pass --token.");
 
   let intervalMs: number | undefined;
   const intervalText = opts.interval ?? config.interval;

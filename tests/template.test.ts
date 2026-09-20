@@ -32,10 +32,10 @@ describe("templates/github-workflow.yml", () => {
     expect(doc.permissions).toEqual({ contents: "write" });
   });
 
-  it("checks the repo out into the directory sheaf syncs to (no nested repo)", async () => {
+  it("checks the repo out into the directory vaultweave syncs to (no nested repo)", async () => {
     const { steps } = await load();
     const checkout = steps.find((s) => s.uses?.startsWith("actions/checkout"));
-    const sync = steps.find((s) => s.run?.includes("sheaf@"));
+    const sync = steps.find((s) => s.run?.includes("vaultweave@"));
     expect(checkout?.with?.path).toBe("backup");
     expect(sync?.run).toContain("--out ./backup");
     expect(sync?.run).toContain("--git");
@@ -43,8 +43,8 @@ describe("templates/github-workflow.yml", () => {
 
   it("only passes --notify when the alert secret is set (an empty target would be a config error)", async () => {
     const { steps } = await load();
-    const sync = steps.find((s) => s.run?.includes("sheaf@"));
-    expect(sync?.run).toMatch(/if \[ -n "\$SHEAF_ALERT" \]/);
+    const sync = steps.find((s) => s.run?.includes("vaultweave@"));
+    expect(sync?.run).toMatch(/if \[ -n "\$VAULTWEAVE_ALERT" \]/);
   });
 
   it("saves state even when the sync fails, and pushes unless cancelled", async () => {
@@ -55,10 +55,10 @@ describe("templates/github-workflow.yml", () => {
     expect(push?.["working-directory"]).toBe("backup");
   });
 
-  it("caches the real state DB path (not the old .sheaf directory)", async () => {
+  it("caches the real state DB path (not the old .vaultweave directory)", async () => {
     const { text } = await load();
-    expect(text).toContain("backup/sheaf.db");
-    expect(text).not.toMatch(/path: \.sheaf\b/);
+    expect(text).toContain("backup/vaultweave.db");
+    expect(text).not.toMatch(/path: \.vaultweave\b/);
   });
 
   it("only uses CLI flags that actually exist", async () => {

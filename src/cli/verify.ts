@@ -1,4 +1,4 @@
-/** `sheaf verify` — read-only verification of rendered Markdown against live Notion. */
+/** `vaultweave verify` — read-only verification of rendered Markdown against live Notion. */
 import { mkdtemp, readdir, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, relative, sep } from "node:path";
@@ -124,7 +124,7 @@ export async function runVerifyCommand(
   let apiRequests = 0;
   let pagesLive = 0;
   let pagesSkipped = 0;
-  const temp = await mkdtemp(join(tmpdir(), "sheaf-verify-"));
+  const temp = await mkdtemp(join(tmpdir(), "vaultweave-verify-"));
   try {
     const makeExtractor = deps.runExtract ?? ((o) => createOfficialExtractor(o));
     const extractor = makeExtractor({
@@ -206,9 +206,9 @@ export function registerVerify(program: Command): void {
   program
     .command("verify")
     .description("Verify output files against the live Notion workspace (read-only)")
-    .option("--token <token>", "Notion integration token (prefer SHEAF_TOKEN env var)")
+    .option("--token <token>", "Notion integration token (prefer VAULTWEAVE_TOKEN env var)")
     .option("--out <dir>", "output directory")
-    .option("--config <path>", "path to .sheaf.yaml")
+    .option("--config <path>", "path to .vaultweave.yaml")
     .option("--json", "print the verification report as JSON")
     .action(async (opts: VerifyCommandOptions) => {
       process.exitCode = await runVerifyCommand(opts);

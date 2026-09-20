@@ -2,17 +2,17 @@
 
 ## Token handling
 
-- **Source of truth:** the `SHEAF_TOKEN` environment variable, or your CI secret store. Prefer this over `--token`,
+- **Source of truth:** the `VAULTWEAVE_TOKEN` environment variable, or your CI secret store. Prefer this over `--token`,
   which can end up in shell history and process listings.
-- **Never written to disk** inside the output/synced repository. `sheaf.db` (+ `-wal`/`-shm`), `.sheaf.lock` and
-  `.sheaf-run-report.json` are added to the output repo's `.gitignore` on every `--git` sync, including
+- **Never written to disk** inside the output/synced repository. `vaultweave.db` (+ `-wal`/`-shm`), `.vaultweave.lock` and
+  `.vaultweave-run-report.json` are added to the output repo's `.gitignore` on every `--git` sync, including
   repositories that already existed.
 - **Optional keyring storage** (`--save-token`) is planned; it will use the OS keychain, not a file.
 
 ## Least privilege
 
 The official integration only sees pages explicitly shared with it. Share only what you need to back up.
-`sheaf doctor` reports how many pages are reachable, so an over- or under-shared integration is visible.
+`vaultweave doctor` reports how many pages are reachable, so an over- or under-shared integration is visible.
 
 ## Redaction — NOT IMPLEMENTED YET
 
@@ -32,7 +32,7 @@ The official-API path is the default and the only supported one.
 
 ## CI
 
-- Store `SHEAF_TOKEN` as an encrypted repository secret; never echo it.
+- Store `VAULTWEAVE_TOKEN` as an encrypted repository secret; never echo it.
 - Keep the repository holding your backup **private** — it contains your workspace content.
 - The workflow template requests only `contents: write`.
 
@@ -52,7 +52,7 @@ The official-API path is the default and the only supported one.
 
 ## Concurrency
 
-Only one sync may write an output directory at a time (`.sheaf.lock`, a heartbeat lease). A second run exits
+Only one sync may write an output directory at a time (`.vaultweave.lock`, a heartbeat lease). A second run exits
 with code 3 and does nothing. A crashed run's lock is reclaimed automatically (dead local PID, or no heartbeat
 for 5 minutes).
 

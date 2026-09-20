@@ -1,5 +1,5 @@
 /**
- * Git sync target for sheaf.
+ * Git sync target for vaultweave.
  *
  * Shells out to the user's real `git` binary so their credentials, GPG signing,
  * commit hooks, and `.gitconfig` all apply — no re-implementation of git logic.
@@ -10,7 +10,7 @@
  *   1. If `<outDir>` is not itself a git repo (no `.git` entry), `git init` it.
  *      A repo *containing* outDir is deliberately NOT adopted: `--git` must never
  *      silently commit into an unrelated parent repository.
- *   2. Make sure `.gitignore` excludes sheaf's runtime files (state DB, lock, run
+ *   2. Make sure `.gitignore` excludes vaultweave's runtime files (state DB, lock, run
  *      report). This runs on every sync, including for pre-existing repos — otherwise
  *      the binary state DB would be committed into a repository the user cloned.
  *   3. Stage all changes (`git add -A`).
@@ -58,12 +58,12 @@ export class GitError extends Error {
 
 /** Runtime files that must never be committed into the backup history. */
 export const GITIGNORE_ENTRIES = [
-  "sheaf.db",
-  "sheaf.db-shm",
-  "sheaf.db-wal",
-  ".sheaf.lock",
-  ".sheaf-run-report.json",
-  ".sheaf-extraction-cache.json",
+  "vaultweave.db",
+  "vaultweave.db-shm",
+  "vaultweave.db-wal",
+  ".vaultweave.lock",
+  ".vaultweave-run-report.json",
+  ".vaultweave-extraction-cache.json",
   "*.partial",
   "assets/.partial/",
 ] as const;
@@ -98,7 +98,7 @@ async function git(
   }
 }
 
-/** Appends any missing sheaf entries to `.gitignore` (creating it if needed). */
+/** Appends any missing vaultweave entries to `.gitignore` (creating it if needed). */
 export async function ensureGitignore(outDir: string): Promise<void> {
   const path = join(outDir, ".gitignore");
   const existing = (await exists(path)) ? await readFile(path, "utf8") : "";
@@ -107,10 +107,10 @@ export async function ensureGitignore(outDir: string): Promise<void> {
   if (missing.length === 0) return;
   const prefix =
     existing === ""
-      ? "# sheaf runtime state — do not commit\n"
+      ? "# vaultweave runtime state — do not commit\n"
       : existing.endsWith("\n")
-        ? "\n# sheaf runtime state — do not commit\n"
-        : "\n\n# sheaf runtime state — do not commit\n";
+        ? "\n# vaultweave runtime state — do not commit\n"
+        : "\n\n# vaultweave runtime state — do not commit\n";
   await writeFile(path, `${existing}${prefix}${missing.join("\n")}\n`, "utf8");
 }
 
@@ -129,12 +129,12 @@ async function identityFallback(cwd: string): Promise<Record<string, string>> {
   };
   const env: Record<string, string> = {};
   if (!(await has("user.name"))) {
-    env.GIT_AUTHOR_NAME = "sheaf";
-    env.GIT_COMMITTER_NAME = "sheaf";
+    env.GIT_AUTHOR_NAME = "vaultweave";
+    env.GIT_COMMITTER_NAME = "vaultweave";
   }
   if (!(await has("user.email"))) {
-    env.GIT_AUTHOR_EMAIL = "sheaf@users.noreply.github.com";
-    env.GIT_COMMITTER_EMAIL = "sheaf@users.noreply.github.com";
+    env.GIT_AUTHOR_EMAIL = "vaultweave@users.noreply.github.com";
+    env.GIT_COMMITTER_EMAIL = "vaultweave@users.noreply.github.com";
   }
   return env;
 }

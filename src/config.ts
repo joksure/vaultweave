@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { parse as parseYaml } from "yaml";
 import { z } from "zod";
 
-export const CONFIG_FILENAME = ".sheaf.yaml";
+export const CONFIG_FILENAME = ".vaultweave.yaml";
 
 export class ConfigError extends Error {
   override name = "ConfigError";
@@ -38,7 +38,7 @@ const targetConfigs = z.preprocess((value) => {
 export const ConfigSchema = z
   .object({
     token: z.string().min(1).optional(),
-    out: z.string().min(1).default("./sheaf-backup"),
+    out: z.string().min(1).default("./vaultweave-backup"),
     git: z.boolean().default(false),
     interval: z
       .string()
@@ -120,7 +120,7 @@ export function parseConfig(yamlText: string, env: Env = process.env): Config {
   return result.data;
 }
 
-/** Loads `path` (or ./.sheaf.yaml). A missing default file yields defaults. */
+/** Loads `path` (or ./.vaultweave.yaml). A missing default file yields defaults. */
 export async function loadConfig(path?: string, env: Env = process.env): Promise<Config> {
   const file = path ?? CONFIG_FILENAME;
   let text: string;

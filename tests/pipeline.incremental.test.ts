@@ -30,9 +30,9 @@ afterAll(() => server.close());
 let outDir: string;
 let assetsDir: string;
 beforeEach(async () => {
-  outDir = await mkdtemp(join(tmpdir(), "sheaf-incr-"));
+  outDir = await mkdtemp(join(tmpdir(), "vaultweave-incr-"));
   // Assets are written outside the output dir so wiping it between tests never races an open DB.
-  assetsDir = await mkdtemp(join(tmpdir(), "sheaf-incr-assets-"));
+  assetsDir = await mkdtemp(join(tmpdir(), "vaultweave-incr-assets-"));
 });
 afterEach(async () => {
   await rm(outDir, { recursive: true, force: true });
@@ -280,7 +280,7 @@ describe("incremental extraction", () => {
     const { fixture } = apiFixture();
     await runSync(syncOpts(), deps());
     const orphanPath = join(outDir, "Shared orphan.md");
-    expect(await readFile(orphanPath, "utf8")).not.toContain("sheaf_tombstone");
+    expect(await readFile(orphanPath, "utf8")).not.toContain("vaultweave_tombstone");
 
     // The orphan is gone from Notion, but a filtered search would never say so.
     const orphan = fixture.ids.orphan as string;
@@ -289,12 +289,12 @@ describe("incremental extraction", () => {
 
     const incr = await runSync(syncOpts({ incremental: true }), deps());
     expect(incr.counts.pagesDeleted).toBe(0);
-    expect(await readFile(orphanPath, "utf8")).not.toContain("sheaf_tombstone");
+    expect(await readFile(orphanPath, "utf8")).not.toContain("vaultweave_tombstone");
 
     // A full re-crawl sees the whole workspace, so it can tell "gone" from "not looked at".
     const full = await runSync(syncOpts(), deps());
     expect(full.counts.pagesDeleted).toBe(1);
-    expect(await readFile(orphanPath, "utf8")).toContain("sheaf_tombstone");
+    expect(await readFile(orphanPath, "utf8")).toContain("vaultweave_tombstone");
   });
 
   it("re-fetches a page whose timestamp is inside the window", async () => {

@@ -122,10 +122,10 @@ describe("channels", () => {
     const n = createNotifier(`webhook:${base}/hook`, { sleep: instant });
     await n.send(failedEvent());
     const hit = hits[0] as Hit;
-    expect(hit.headers["x-sheaf-event"]).toBe("sync.failed");
+    expect(hit.headers["x-vaultweave-event"]).toBe("sync.failed");
     const body = JSON.parse(hit.body);
     expect(body).toMatchObject({
-      event: "sheaf.sync.failed",
+      event: "vaultweave.sync.failed",
       ok: false,
       host: "backup-box",
       failureStreak: 1,
@@ -180,9 +180,9 @@ describe("channels", () => {
     );
     for (const failureStreak of [1, 2, 4]) await n.send(failedEvent({ failureStreak }));
     expect(messages.map((m) => m.subject)).toEqual([
-      "sheaf backup FAILED (1 in a row)",
-      "sheaf backup FAILED (2 in a row)",
-      "sheaf backup FAILED (4 in a row)",
+      "vaultweave backup FAILED (1 in a row)",
+      "vaultweave backup FAILED (2 in a row)",
+      "vaultweave backup FAILED (4 in a row)",
     ]);
     expect(String(messages[0]?.text)).toContain("host: backup-box");
     expect(String(messages[0]?.text)).not.toContain("password");
@@ -300,7 +300,7 @@ describe("buildMessage / scrubSecrets", () => {
     const msg = buildMessage(
       failedEvent({ failureStreak: 4, report: makeReport({ ok: false, errors }) }),
     );
-    expect(msg.title).toBe("sheaf backup FAILED (4 in a row)");
+    expect(msg.title).toBe("vaultweave backup FAILED (4 in a row)");
     expect(msg.details.filter((d) => d.startsWith("[c]"))).toHaveLength(5);
     expect(msg.details.every((d) => d.length <= 300)).toBe(true);
     expect(msg.details.join("\n")).toContain("and 7 more");
@@ -315,7 +315,7 @@ describe("buildMessage / scrubSecrets", () => {
       previousFailures: 3,
       host: "h",
     });
-    expect(rec.title).toBe("sheaf backup RECOVERED");
+    expect(rec.title).toBe("vaultweave backup RECOVERED");
     expect(rec.summary).toContain("3 failed run(s)");
     const s = buildMessage({
       kind: "succeeded",

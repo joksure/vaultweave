@@ -43,16 +43,18 @@ describe("S3 target", () => {
     ).resolves.toBe(true);
     expect(calls[0]).toBe("HeadObjectCommand:notion/page.md");
     expect(
-      calls.some((call) => call.startsWith("PutObjectCommand:notion/page.md.sheaf-upload-")),
+      calls.some((call) => call.startsWith("PutObjectCommand:notion/page.md.vaultweave-upload-")),
     ).toBe(true);
     expect(calls).toContain("CopyObjectCommand:notion/page.md");
     expect(
-      calls.some((call) => call.startsWith("DeleteObjectCommand:notion/page.md.sheaf-upload-")),
+      calls.some((call) =>
+        call.startsWith("DeleteObjectCommand:notion/page.md.vaultweave-upload-"),
+      ),
     ).toBe(true);
   });
 
   it("continues other files when one upload fails", async () => {
-    const dir = await mkdtemp(join(tmpdir(), "sheaf-s3-"));
+    const dir = await mkdtemp(join(tmpdir(), "vaultweave-s3-"));
     await writeFile(join(dir, "ok.md"), "ok");
     await writeFile(join(dir, "bad.md"), "bad");
     const client: S3ClientLike = {

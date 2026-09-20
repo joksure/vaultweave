@@ -20,14 +20,14 @@ describe("expandEnv", () => {
 describe("parseConfig", () => {
   it("applies defaults to an empty file", () => {
     const cfg = parseConfig("", {});
-    expect(cfg).toMatchObject({ out: "./sheaf-backup", git: false, ignore: [], redact: [] });
+    expect(cfg).toMatchObject({ out: "./vaultweave-backup", git: false, ignore: [], redact: [] });
     expect(cfg.notify.on_success).toBe("silent");
   });
 
   it("accepts the example from the README", async () => {
     const text = await readFile(new URL("./fixtures/config.readme.yaml", import.meta.url), "utf8");
     const cfg = parseConfig(text, {
-      SHEAF_TOKEN: "secret_x",
+      VAULTWEAVE_TOKEN: "secret_x",
       ERROR_WEBHOOK: "https://h.example/x",
     });
     expect(cfg.token).toBe("secret_x");

@@ -48,14 +48,14 @@ export async function runExtract(opts: ExtractOptions, deps: ExtractDeps = {}): 
     return 1;
   }
 
-  const token = opts.token ?? config.token ?? env.SHEAF_TOKEN;
+  const token = opts.token ?? config.token ?? env.VAULTWEAVE_TOKEN;
   if (!token) {
-    err("No Notion token found. Set SHEAF_TOKEN (preferred) or pass --token.\n");
+    err("No Notion token found. Set VAULTWEAVE_TOKEN (preferred) or pass --token.\n");
     return 1;
   }
   const outDir = opts.out ?? config.out;
 
-  err("sheaf extract is EXPERIMENTAL (M1): it writes the raw extraction as JSON.\n");
+  err("vaultweave extract is EXPERIMENTAL (M1): it writes the raw extraction as JSON.\n");
   err("Markdown/CSV output arrives in M2; see CAPABILITIES.md.\n");
 
   let seen = 0;
@@ -101,9 +101,9 @@ export function registerExtract(program: Command): void {
     .description(
       "[experimental] Extract the workspace to raw JSON + downloaded files (renderers land in M2)",
     )
-    .option("--token <token>", "Notion integration token (prefer the SHEAF_TOKEN env var)")
-    .option("--out <dir>", "output directory (default: config `out` or ./sheaf-backup)")
-    .option("--config <path>", "path to .sheaf.yaml")
+    .option("--token <token>", "Notion integration token (prefer the VAULTWEAVE_TOKEN env var)")
+    .option("--out <dir>", "output directory (default: config `out` or ./vaultweave-backup)")
+    .option("--config <path>", "path to .vaultweave.yaml")
     .option(
       "--root <id>",
       "extract only this page/database ID (repeatable)",

@@ -9,12 +9,19 @@ coverage/
 .env.*
 !.env.example
 
-# notion-portable runtime artefacts (state DB and local backups)
+# vaultweave runtime artefacts (state DB, cache, lock and reports)
+vaultweave.db
+vaultweave.db-*
+.vaultweave.lock
+.vaultweave-run-report.json
+.vaultweave-extraction-cache.json
+
+# Legacy names are kept ignored so older backup folders remain safe.
+
+# legacy runtime artefacts
 state.sqlite
 *.sqlite-journal
-.notion-portable/
-notion-backup/
-my-notion/
+# Legacy backup directory
 
 # OS / editor
 .DS_Store

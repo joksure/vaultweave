@@ -8,8 +8,8 @@ let dir: string;
 let db: StateDb;
 
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), "sheaf-state-test-"));
-  db = new StateDb(join(dir, "sheaf.db"));
+  dir = await mkdtemp(join(tmpdir(), "vaultweave-state-test-"));
+  db = new StateDb(join(dir, "vaultweave.db"));
 });
 
 afterEach(async () => {
@@ -111,7 +111,7 @@ describe("run reports", () => {
       },
       warnings: [],
       errors: [],
-      outDir: "/tmp/sheaf-test",
+      outDir: "/tmp/vaultweave-test",
     };
     db.saveReport(report);
     const reports = db.getRecentReports(1);

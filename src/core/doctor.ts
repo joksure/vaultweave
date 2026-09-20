@@ -141,7 +141,7 @@ function checkLastRun(opts: DoctorOptions): DoctorCheck {
       id: "last_run",
       ok: true,
       severity: "warn",
-      message: `No run recorded in ${outDir} yet — run \`sheaf sync\` first`,
+      message: `No run recorded in ${outDir} yet — run \`vaultweave sync\` first`,
     };
   }
   try {
@@ -156,7 +156,7 @@ function checkLastRun(opts: DoctorOptions): DoctorCheck {
       };
     }
     if (!last.ok) {
-      const why = last.aborted ?? last.errors[0]?.message ?? "see .sheaf-run-report.json";
+      const why = last.aborted ?? last.errors[0]?.message ?? "see .vaultweave-run-report.json";
       return {
         id: "last_run",
         ok: false,
@@ -208,7 +208,7 @@ async function checkGit(opts: DoctorOptions): Promise<DoctorCheck> {
     repo ? "repository initialised" : "repository will be created on the first sync",
     identity
       ? "identity configured"
-      : 'no git identity configured (commits will be authored as "sheaf")',
+      : 'no git identity configured (commits will be authored as "vaultweave")',
   ];
   return {
     id: "git",
@@ -263,7 +263,7 @@ async function checkAssets(opts: DoctorOptions): Promise<DoctorCheck | undefined
     }
     if (missing.length > 0) {
       problems.push(
-        `${missing.length} referenced asset(s) missing on disk (e.g. ${missing.slice(0, 3).join(", ")}) — re-run \`sheaf sync --full\``,
+        `${missing.length} referenced asset(s) missing on disk (e.g. ${missing.slice(0, 3).join(", ")}) — re-run \`vaultweave sync --full\``,
       );
     }
   }
@@ -282,7 +282,7 @@ async function checkAssets(opts: DoctorOptions): Promise<DoctorCheck | undefined
 /**
  * "Missing pages": pages we backed up earlier that search no longer returns. That is either a
  * genuine deletion OR the integration losing access. The sync now preserves the previous file for
- * `restricted_resource` failures and marks it with `sheaf_access_lost`, while true absence still
+ * `restricted_resource` failures and marks it with `vaultweave_access_lost`, while true absence still
  * becomes a tombstone. This check warns about both possibilities before the next sync.
  */
 async function checkCoverage(
@@ -392,7 +392,7 @@ export async function runDoctor(opts: DoctorOptions): Promise<DoctorReport> {
     push({
       id: "token",
       ok: false,
-      message: "No Notion token found. Set SHEAF_TOKEN (preferred) or pass --token.",
+      message: "No Notion token found. Set VAULTWEAVE_TOKEN (preferred) or pass --token.",
     });
     return finish();
   }

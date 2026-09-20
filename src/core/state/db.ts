@@ -1,12 +1,12 @@
 /**
- * SQLite state store for sheaf incremental sync.
+ * SQLite state store for vaultweave incremental sync.
  *
  * Persists:
  *   - `sync_state`  — last_sync cursor (ISO timestamp) per run target
  *   - `page_hashes` — SHA-256 of each page's last-rendered content (dedup writes)
  *   - `run_reports` — structured JSON reports for every completed run
  *
- * The file lives at `<outDir>/sheaf.db` (excluded from Git via .gitignore).
+ * The file lives at `<outDir>/vaultweave.db` (excluded from Git via .gitignore).
  * All writes are transactional; the file is never left half-written.
  *
  * We use `better-sqlite3` (sync API) rather than `bun:sqlite` so the same
@@ -241,16 +241,16 @@ export class StateDb {
   }
 }
 
-/** Opens (creating if needed) the state DB at `<outDir>/sheaf.db`. */
+/** Opens (creating if needed) the state DB at `<outDir>/vaultweave.db`. */
 export function openStateDb(outDir: string): StateDb {
-  const path = `${outDir}/sheaf.db`;
+  const path = `${outDir}/vaultweave.db`;
   return new StateDb(path);
 }
 
 /** Opens an existing state DB read-only; `undefined` if there is none (or it is unreadable). */
 export function openStateDbReadonly(outDir: string): StateDb | undefined {
   try {
-    return new StateDb(join(outDir, "sheaf.db"), { readonly: true });
+    return new StateDb(join(outDir, "vaultweave.db"), { readonly: true });
   } catch {
     return undefined;
   }

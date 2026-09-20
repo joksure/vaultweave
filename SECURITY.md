@@ -20,5 +20,5 @@ Pre-1.0: only the latest released version receives fixes.
 
 ## Handling your token
 
-See [docs/security.md](./docs/security.md). In short: use `SHEAF_TOKEN` from the environment or your CI
+See [docs/security.md](./docs/security.md). In short: use `VAULTWEAVE_TOKEN` from the environment or your CI
 secret store; grant the integration access only to the pages you need; never commit `.env` or `state.sqlite`.

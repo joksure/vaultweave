@@ -3,7 +3,7 @@
  *
  * Two syncs writing the same directory at once (a slow cron run overlapping the next one, or a
  * manual `sync` while `watch` is running) would race on files and the state DB. The lock is a
- * file `<outDir>/.sheaf.lock` created atomically (`wx`), plus a *lease*:
+ * file `<outDir>/.vaultweave.lock` created atomically (`wx`), plus a *lease*:
  *
  *   - the holder refreshes the file's mtime every `heartbeatMs`;
  *   - a lock is stale if its lease expired (`staleAfterMs` without a heartbeat), OR it was
@@ -23,7 +23,7 @@ import { mkdir, readFile, stat, unlink, utimes, writeFile } from "node:fs/promis
 import { hostname } from "node:os";
 import { join } from "node:path";
 
-export const LOCK_FILENAME = ".sheaf.lock";
+export const LOCK_FILENAME = ".vaultweave.lock";
 
 export interface LockInfo {
   pid: number;
@@ -37,8 +37,8 @@ export class LockHeldError extends Error {
   constructor(readonly holder: LockInfo | undefined) {
     super(
       holder
-        ? `Another sheaf run holds the lock (pid ${holder.pid} on ${holder.host}, started ${holder.startedAt}).`
-        : "Another sheaf run holds the lock.",
+        ? `Another vaultweave run holds the lock (pid ${holder.pid} on ${holder.host}, started ${holder.startedAt}).`
+        : "Another vaultweave run holds the lock.",
     );
   }
 }
