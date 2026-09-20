@@ -8,7 +8,7 @@ import { makeReport } from "./support/report.js";
 
 let dir: string;
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), "sheaf-doctor-"));
+  dir = await mkdtemp(join(tmpdir(), "vaultweave-doctor-"));
 });
 afterEach(async () => {
   await rm(dir, { recursive: true, force: true });
@@ -43,7 +43,7 @@ describe("doctor: last_run", () => {
     const r = await runDoctor({ ...base, client: client(), outDir: dir });
     expect(find(r, "last_run")).toMatchObject({ ok: true, severity: "warn" });
     expect(r.ok).toBe(true);
-    await expect(stat(join(dir, "sheaf.db"))).rejects.toThrow(); // inspecting must not create files
+    await expect(stat(join(dir, "vaultweave.db"))).rejects.toThrow(); // inspecting must not create files
   });
 
   it("passes on a fresh successful run", async () => {
@@ -150,7 +150,7 @@ describe("doctor: git", () => {
     expect(find(r, "git")?.ok).toBe(false);
   });
 
-  it("only warns about a missing identity (sheaf has a fallback)", async () => {
+  it("only warns about a missing identity (vaultweave has a fallback)", async () => {
     const r = await runDoctor({
       ...base,
       client: client(),

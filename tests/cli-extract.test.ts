@@ -32,7 +32,7 @@ function result(over: Partial<ExtractionResult> = {}): ExtractionResult {
 async function run(
   extractResult: ExtractionResult,
   opts: Parameters<typeof runExtract>[0] = {},
-  env: Record<string, string> = { SHEAF_TOKEN: "secret_env" },
+  env: Record<string, string> = { VAULTWEAVE_TOKEN: "secret_env" },
 ) {
   const outDir = await mkdtemp(join(tmpdir(), "np-cli-"));
   const seen: { token?: string; outDir?: string; roots?: string[]; rowBodies?: boolean } = {};
@@ -60,7 +60,7 @@ async function run(
   return { code, stdout, stderr, outDir, seen };
 }
 
-describe("sheaf extract", () => {
+describe("vaultweave extract", () => {
   it("exits 0, writes extraction.json, and prints a summary on a complete run", async () => {
     const { code, stdout, outDir } = await run(result());
     expect(code).toBe(0);

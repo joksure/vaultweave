@@ -11,10 +11,10 @@ const exec = promisify(execCb);
 let dir: string;
 
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), "sheaf-git-test-"));
+  dir = await mkdtemp(join(tmpdir(), "vaultweave-git-test-"));
   // Configure git identity for the test environment.
-  await exec("git config user.email test@sheaf.local", { cwd: dir }).catch(() => undefined);
-  await exec("git config user.name sheaf-test", { cwd: dir }).catch(() => undefined);
+  await exec("git config user.email test@vaultweave.local", { cwd: dir }).catch(() => undefined);
+  await exec("git config user.name vaultweave-test", { cwd: dir }).catch(() => undefined);
 });
 
 afterEach(async () => {
@@ -63,17 +63,17 @@ describe("gitSync", () => {
     expect(result?.filesChanged).toBe(1);
   });
 
-  it("writes a .gitignore that excludes sheaf.db", async () => {
+  it("writes a .gitignore that excludes vaultweave.db", async () => {
     await writeFile(join(dir, "page.md"), "# Hello\n");
     await gitSync({ outDir: dir, summary: "1 page", runTimestamp: "2026-09-20T10:00:00.000Z" });
     const gi = await readFile(join(dir, ".gitignore"), "utf8");
-    expect(gi).toContain("sheaf.db");
+    expect(gi).toContain("vaultweave.db");
   });
 });
 
 describe("gitLog", () => {
   it("returns empty array for a non-repo directory", async () => {
-    const nonRepo = await mkdtemp(join(tmpdir(), "sheaf-git-log-"));
+    const nonRepo = await mkdtemp(join(tmpdir(), "vaultweave-git-log-"));
     try {
       const log = await gitLog(nonRepo, 5);
       expect(log).toEqual([]);

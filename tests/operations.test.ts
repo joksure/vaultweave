@@ -11,7 +11,7 @@ import { makeReport } from "./support/report.js";
 
 let outDir: string;
 beforeEach(async () => {
-  outDir = await mkdtemp(join(tmpdir(), "sheaf-ops-"));
+  outDir = await mkdtemp(join(tmpdir(), "vaultweave-ops-"));
 });
 afterEach(async () => {
   await rm(outDir, { recursive: true, force: true });
@@ -222,7 +222,7 @@ describe("runOperatedSync", () => {
       await new Promise((res) => setTimeout(res, 3)); // distinct startedAt
     }
     expect(sent).toEqual([true, true, false]); // streak 1, 2 alert; 3 does not
-    const report = JSON.parse(await readFile(join(outDir, ".sheaf-run-report.json"), "utf8"));
+    const report = JSON.parse(await readFile(join(outDir, ".vaultweave-run-report.json"), "utf8"));
     expect(report.schemaVersion).toBe(1);
   });
 });

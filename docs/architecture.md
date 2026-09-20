@@ -1,4 +1,4 @@
-# sheaf — Technical Blueprint
+# vaultweave — Technical Blueprint
 > v0.1 · Target: global OSS release · Status: design
 
 ## 1. Positioning
@@ -38,7 +38,7 @@ matrix (§7) of what the API can and cannot export. Trust > feature claims.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        CLI (sheaf)                 │
+│                        CLI (vaultweave)                 │
 │  backup │ sync │ watch │ verify │ doctor │ capabilities      │
 └──────────────┬──────────────────────────────────────────────┘
                │
@@ -89,7 +89,7 @@ matrix (§7) of what the API can and cannot export. Trust > feature claims.
 | State store | **SQLite (bun:sqlite)** | Zero-config, transactional, survives cron; state file lives next to output repo |
 | Rendering | Custom MD renderer on shared IR | `notion-to-md` as reference but we own the IR (CSV/JSON need it) |
 | Git sync | **isomorphic-git** or shell `git` | Prefer shelling out to real git (users' credentials, GPG signing, hooks) |
-| Config | YAML (`.sheaf.yaml`) + env vars | `SHEAF_TOKEN`, `NOTION_SYNC_INTERVAL`, etc. |
+| Config | YAML (`.vaultweave.yaml`) + env vars | `VAULTWEAVE_TOKEN`, `NOTION_SYNC_INTERVAL`, etc. |
 | CI | GitHub Actions (matrix: mac/linux/win) | Releases via release-please; binaries attached per release |
 | Tests | Vitest + MSW (API mock) + golden-file snapshot tests | Golden files = rendered MD committed in repo; regression-proof |
 | Notifier | Pluggable: webhook / Slack / Discord / SMTP | P4 principle — pluggable so OSS users extend |
@@ -103,7 +103,7 @@ matrix (§7) of what the API can and cannot export. Trust > feature claims.
 ## 5. Repository Structure
 
 ```
-sheaf/
+vaultweave/
 ├── README.md
 ├── CAPABILITIES.md              # generated honesty matrix (P1)
 ├── LICENSE                      # MIT
@@ -153,11 +153,11 @@ sheaf/
 
 ## 6. Security Model
 
-- **Token storage:** env var first (`SHEAF_TOKEN`), OS keyring optional
+- **Token storage:** env var first (`VAULTWEAVE_TOKEN`), OS keyring optional
   (`--save-token`), never written into the output/synced repo.
 - **Least privilege:** `doctor` checks the integration's capabilities and
   warns on workspace-level tokens when a narrower scope works.
-- **CI mode:** `SHEAF_TOKEN` from GitHub Secrets only; workflow template
+- **CI mode:** `VAULTWEAVE_TOKEN` from GitHub Secrets only; workflow template
   uses `permissions: contents: write` minimally.
 - **Output hygiene:** `.gitignore` convention for `state.sqlite`; a
   `--redact` flag strips property values matching user regex (emails, etc.).

@@ -1,11 +1,11 @@
 {
-  "name": "sheaf",
-  "version": "0.0.0",
-  "description": "Your Notion, out of Notion. Back up a Notion workspace to portable Markdown, CSV, JSON and assets, with incremental sync into Git.",
+  "name": "vaultweave",
+  "version": "0.1.0",
+  "description": "Back up Notion to portable Markdown, CSV, JSON and assets, with Git history, watch mode, alerts and S3 targets.",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "sheaf": "./dist/cli/index.js"
+    "vaultweave": "./dist/cli/index.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -25,12 +25,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOU/sheaf.git"
+    "url": "git+https://github.com/joksure/vaultweave.git"
   },
   "bugs": {
-    "url": "https://github.com/YOU/sheaf/issues"
+    "url": "https://github.com/joksure/vaultweave/issues"
   },
-  "homepage": "https://github.com/YOU/sheaf#readme",
+  "homepage": "https://github.com/joksure/vaultweave#readme",
   "keywords": [
     "notion",
     "backup",
@@ -40,7 +40,7 @@
     "cli",
     "sync",
     "portable",
-    "sheaf"
+    "vaultweave"
   ],
   "publishConfig": {
     "access": "public",

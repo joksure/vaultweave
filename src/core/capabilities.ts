@@ -154,7 +154,7 @@ export function renderCapabilitiesMarkdown(
     "<!-- GENERATED FILE — do not edit by hand. Run `npm run capabilities`. -->",
     "# Capabilities (honesty matrix)",
     "",
-    "What Notion lets us export, and what `sheaf` actually exports today.",
+    "What Notion lets us export, and what `vaultweave` actually exports today.",
     "This file is generated from `src/core/capabilities.ts`; CI fails on drift.",
     "",
     "| Capability | Official API | Internal API (opt-in) | Tool status |",

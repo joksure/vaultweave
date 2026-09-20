@@ -3,7 +3,7 @@
  *
  *   lock → sync → (never throws) → history/streak → notify → result
  *
- * Both `sheaf sync` and every tick of `sheaf watch` go through `runOperatedSync`, so a cron job
+ * Both `vaultweave sync` and every tick of `vaultweave watch` go through `runOperatedSync`, so a cron job
  * and a daemon behave identically: same lock, same alert policy, same exit-code contract.
  *
  * Design rules:
@@ -42,7 +42,7 @@ export interface OperateDeps {
   runSync?: typeof runSync;
   syncDeps?: SyncDeps;
   acquireLock?: (outDir: string) => Promise<Lock>;
-  /** Newest-first outcomes from the state DB (default: read `<outDir>/sheaf.db`). */
+  /** Newest-first outcomes from the state DB (default: read `<outDir>/vaultweave.db`). */
   readHistory?: (outDir: string) => Array<{ startedAt: string; ok: boolean }>;
   host?: string;
 }

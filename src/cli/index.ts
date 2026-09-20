@@ -16,7 +16,7 @@ const { version } = require("../../package.json") as { version: string };
 const program = new Command();
 
 program
-  .name("sheaf")
+  .name("vaultweave")
   .description("Your Notion, out of Notion — portable, versioned backups of a Notion workspace.")
   .version(version);
 

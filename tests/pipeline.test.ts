@@ -13,7 +13,7 @@ import { StateDb } from "../src/core/state/db.js";
 let outDir: string;
 
 beforeEach(async () => {
-  outDir = await mkdtemp(join(tmpdir(), "sheaf-pipeline-test-"));
+  outDir = await mkdtemp(join(tmpdir(), "vaultweave-pipeline-test-"));
 });
 
 afterEach(async () => {
@@ -75,7 +75,7 @@ describe("runSync", () => {
 
   it("stores a cursor in the state DB after the first run", async () => {
     await runSync({ token: "test-token", outDir, incremental: false }, makeDeps());
-    const db = new StateDb(join(outDir, "sheaf.db"));
+    const db = new StateDb(join(outDir, "vaultweave.db"));
     const cursor = db.getCursor("last_sync");
     db.close();
     expect(cursor).toBeDefined();
@@ -99,16 +99,16 @@ describe("runSync", () => {
     await runSync({ token: "test-token", outDir, incremental: true }, deps);
 
     // The second report should be marked incremental.
-    const db = new StateDb(join(outDir, "sheaf.db"));
+    const db = new StateDb(join(outDir, "vaultweave.db"));
     const reports = db.getRecentReports(2);
     db.close();
     // Most recent (index 0) should be incremental.
     expect(reports[0]?.incremental).toBe(true);
   });
 
-  it("writes .sheaf-run-report.json to outDir", async () => {
+  it("writes .vaultweave-run-report.json to outDir", async () => {
     await runSync({ token: "test-token", outDir, incremental: false }, makeDeps());
-    const raw = await readFile(join(outDir, ".sheaf-run-report.json"), "utf8");
+    const raw = await readFile(join(outDir, ".vaultweave-run-report.json"), "utf8");
     const parsed = JSON.parse(raw);
     expect(parsed).toHaveProperty("ok", true);
     expect(parsed).toHaveProperty("startedAt");

@@ -10,15 +10,15 @@ import { makeReport } from "./support/report.js";
 
 let dir: string;
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), "sheaf-cli-"));
+  dir = await mkdtemp(join(tmpdir(), "vaultweave-cli-"));
 });
 afterEach(async () => {
   await rm(dir, { recursive: true, force: true });
 });
-const env = { SHEAF_TOKEN: "token" };
+const env = { VAULTWEAVE_TOKEN: "token" };
 
 async function cfg(yaml: string): Promise<string> {
-  const p = join(dir, ".sheaf.yaml");
+  const p = join(dir, ".vaultweave.yaml");
   await writeFile(p, yaml);
   return p;
 }

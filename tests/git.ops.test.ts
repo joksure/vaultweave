@@ -13,7 +13,7 @@ const git = (args: string[], cwd: string) =>
 let dir: string;
 const saved = { ...process.env };
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), "sheaf-git-ops-"));
+  dir = await mkdtemp(join(tmpdir(), "vaultweave-git-ops-"));
 });
 afterEach(async () => {
   process.env = { ...saved };
@@ -39,21 +39,21 @@ function isolateGitConfig() {
 }
 
 describe("gitSync (M4 hardening)", () => {
-  it("adds sheaf's ignore entries even to a repository that already existed", async () => {
+  it("adds vaultweave's ignore entries even to a repository that already existed", async () => {
     await git(["init"], dir);
     await git(["config", "user.email", "a@b.c"], dir);
     await git(["config", "user.name", "a"], dir);
     await writeFile(join(dir, ".gitignore"), "node_modules/");
     await writeFile(join(dir, "page.md"), "# hi\n");
-    await writeFile(join(dir, "sheaf.db"), "binary");
-    await writeFile(join(dir, ".sheaf.lock"), "{}");
-    await writeFile(join(dir, ".sheaf-run-report.json"), "{}");
+    await writeFile(join(dir, "vaultweave.db"), "binary");
+    await writeFile(join(dir, ".vaultweave.lock"), "{}");
+    await writeFile(join(dir, ".vaultweave-run-report.json"), "{}");
     await gitSync(opts());
     const tracked = (await git(["ls-files"], dir)).split("\n");
     expect(tracked).toContain("page.md");
-    expect(tracked).not.toContain("sheaf.db");
-    expect(tracked).not.toContain(".sheaf.lock");
-    expect(tracked).not.toContain(".sheaf-run-report.json");
+    expect(tracked).not.toContain("vaultweave.db");
+    expect(tracked).not.toContain(".vaultweave.lock");
+    expect(tracked).not.toContain(".vaultweave-run-report.json");
     const gi = await readFile(join(dir, ".gitignore"), "utf8");
     expect(gi).toContain("node_modules/"); // the user's own entries are preserved
   });
@@ -81,7 +81,7 @@ describe("gitSync (M4 hardening)", () => {
     const r = await gitSync(opts());
     expect(r?.sha).toMatch(/^[0-9a-f]{40}$/);
     expect(await git(["log", "-1", "--format=%an <%ae>"], dir)).toBe(
-      "sheaf <sheaf@users.noreply.github.com>",
+      "vaultweave <vaultweave@users.noreply.github.com>",
     );
   });
 

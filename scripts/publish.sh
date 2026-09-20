@@ -5,17 +5,17 @@
 #
 # Usage:   ./scripts/publish.sh
 # Options (environment variables):
-#   REPO_NAME=sheaf   repository name
+#   REPO_NAME=vaultweave   repository name
 #   OWNER=<user-or-org>         defaults to the account you are logged in as with `gh`
 #   VISIBILITY=public|private   default: public
 #   SKIP_CHECKS=1               skip the local lint/typecheck/test/build gate
 #   PROTECT_MAIN=0              do not configure branch protection
 set -euo pipefail
 
-REPO_NAME="${REPO_NAME:-sheaf}"
+REPO_NAME="${REPO_NAME:-vaultweave}"
 VISIBILITY="${VISIBILITY:-public}"
 PROTECT_MAIN="${PROTECT_MAIN:-1}"
-DESCRIPTION="Your Notion, out of Notion — portable, versioned backups of a Notion workspace (Markdown, CSV, JSON, Git)."
+DESCRIPTION="Back up Notion to portable Markdown, CSV, JSON and assets, with Git history, watch mode, alerts and S3 targets."
 
 say()  { printf '\n\033[1m==> %s\033[0m\n' "$*"; }
 warn() { printf '\033[33m! %s\033[0m\n' "$*" >&2; }
@@ -24,7 +24,7 @@ try()  { "$@" >/dev/null 2>&1 || warn "non-fatal: could not run: $*"; }
 
 cd "$(dirname "$0")/.."
 
-for bin in git gh node npm perl; do
+for bin in git gh node npm; do
   command -v "$bin" >/dev/null 2>&1 || die "'$bin' is required but not installed"
 done
 [[ "$VISIBILITY" == "public" || "$VISIBILITY" == "private" ]] || die "VISIBILITY must be public or private"
@@ -39,14 +39,6 @@ SLUG="$OWNER/$REPO_NAME"
 
 if gh repo view "$SLUG" >/dev/null 2>&1; then
   die "$SLUG already exists. Pick another REPO_NAME or delete it first."
-fi
-
-say "1/6  Filling in your GitHub username ($OWNER) in placeholder URLs"
-FILES="$(grep -rlI --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist --exclude=publish.sh 'YOU/' . || true)"
-if [[ -n "$FILES" ]]; then
-  # shellcheck disable=SC2086
-  perl -pi -e "s#\\bYOU/#$OWNER/#g" $FILES
-  echo "$FILES" | sed 's/^/     updated /'
 fi
 
 if [[ "${SKIP_CHECKS:-0}" != "1" ]]; then

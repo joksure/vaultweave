@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { stableStringify } from "./extractor/json.js";
 import type { ExtractionResult } from "./extractor/types.js";
 
-const CACHE = ".sheaf-extraction-cache.json";
+const CACHE = ".vaultweave-extraction-cache.json";
 
 export async function readExtractionCache(outDir: string): Promise<ExtractionResult | undefined> {
   try {

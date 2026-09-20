@@ -8,7 +8,7 @@ import { openStateDb } from "../src/core/state/index.js";
 
 let outDir: string;
 beforeEach(async () => {
-  outDir = await mkdtemp(join(tmpdir(), "sheaf-pipe-ops-"));
+  outDir = await mkdtemp(join(tmpdir(), "vaultweave-pipe-ops-"));
 });
 afterEach(async () => {
   await rm(outDir, { recursive: true, force: true });
@@ -22,7 +22,7 @@ async function golden(): Promise<ExtractionResult> {
 const with_ = (e: ExtractionResult): SyncDeps => ({
   runExtract: () => ({ extract: async () => e }),
 });
-const TOMBSTONE = "sheaf_tombstone: true";
+const TOMBSTONE = "vaultweave_tombstone: true";
 
 async function without(e: ExtractionResult, title: string): Promise<ExtractionResult> {
   return { ...e, pages: e.pages.filter((p) => p.title !== title) };
@@ -67,8 +67,8 @@ describe("pipeline against real extraction data", () => {
     const r = await runSync({ token: "t", outDir }, with_(restricted));
     const after = await readFile(join(outDir, "Shared orphan.md"), "utf8");
     expect(r.ok).toBe(false);
-    expect(after).toContain("sheaf_access_lost: true");
-    expect(after).toContain("sheaf_access_lost_at:");
+    expect(after).toContain("vaultweave_access_lost: true");
+    expect(after).toContain("vaultweave_access_lost_at:");
     expect(after).toContain("I am shared, but my parent is not\\.");
     expect(after).not.toContain(TOMBSTONE);
 
@@ -162,8 +162,8 @@ describe("pipeline against real extraction data", () => {
       execFile("git", ["ls-files"], { cwd: outDir }, (err, out) => (err ? rej(err) : res(out))),
     );
     expect(tracked).toContain("Engineering Handbook.md");
-    expect(tracked).not.toContain("sheaf.db");
-    expect(tracked).not.toContain(".sheaf-run-report.json");
+    expect(tracked).not.toContain("vaultweave.db");
+    expect(tracked).not.toContain(".vaultweave-run-report.json");
     // Second identical run: no new commit.
     const r2 = await runSync({ token: "t", outDir, git: true }, with_(e));
     expect(r2.gitCommit).toBeUndefined();
@@ -172,7 +172,7 @@ describe("pipeline against real extraction data", () => {
 
   it("writes a versioned report atomically (no leftover .partial)", async () => {
     await runSync({ token: "t", outDir }, with_(await golden()));
-    const report = JSON.parse(await readFile(join(outDir, ".sheaf-run-report.json"), "utf8"));
+    const report = JSON.parse(await readFile(join(outDir, ".vaultweave-run-report.json"), "utf8"));
     expect(report.schemaVersion).toBe(1);
     expect((await readdir(outDir)).filter((f) => f.endsWith(".partial"))).toEqual([]);
   });

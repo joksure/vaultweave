@@ -1,6 +1,8 @@
 <div align="center">
 
-# sheaf
+<img src="assets/social-preview-v2.svg" alt="vaultweave — Your Notion, out of Notion" width="900">
+
+# vaultweave
 
 **Your Notion, out of Notion.**
 
@@ -8,8 +10,8 @@ Open-source CLI that turns your Notion workspace into portable, versioned,
 human-readable files — Markdown, CSV, JSON, and your attachments — with
 incremental sync straight into a Git repository.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/YOU/sheaf/ci.yml?branch=main)](https://github.com/YOU/sheaf/actions)
-[![npm](https://img.shields.io/npm/v/sheaf)](https://www.npmjs.com/package/sheaf)
+[![CI](https://img.shields.io/github/actions/workflow/status/joksure/vaultweave/ci.yml?branch=main)](https://github.com/joksure/vaultweave/actions)
+[![npm](https://img.shields.io/npm/v/vaultweave)](https://www.npmjs.com/package/vaultweave)
 [![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![status](https://img.shields.io/badge/status-pre--1.0-orange)]()
 
@@ -36,6 +38,11 @@ incremental sync straight into a Git repository.
 
 ## Why this exists
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/why-banner.svg">
+  <img src="assets/why-banner.svg" alt="Problems vaultweave solves" width="900">
+</picture>
+
 Notion is where your team thinks. But getting your data *out* — reliably,
 automatically, in a format that survives anything — is harder than it should be:
 
@@ -50,7 +57,7 @@ automatically, in a format that survives anything — is harder than it should b
 - **Existing OSS backup tools** scrape a browser cookie (`token_v2`) that
   expires, breaks, and is unsupported.
 
-`sheaf` gives you a backup that is **rolling, automated, honest about
+`vaultweave` gives you a backup that is **rolling, automated, honest about
 what it can capture, and stored in formats that will outlive any single app.**
 If Notion disappeared tomorrow, your `main` branch would still open in any
 text editor — and be directly readable by AI coding agents.
@@ -58,26 +65,31 @@ text editor — and be directly readable by AI coding agents.
 ## Quickstart
 
 ```bash
-export SHEAF_TOKEN=secret_...            # prefer the env var over --token
+export VAULTWEAVE_TOKEN=secret_...            # prefer the env var over --token
 
 # one-shot sync into a folder
-npx sheaf sync --out ./my-notion
+npx vaultweave sync --out ./my-notion
 
 # …and commit every run to a git repo inside that folder
-npx sheaf sync --out ./my-notion --git
+npx vaultweave sync --out ./my-notion --git
 
 # daemon: sync every 6 hours, alert Slack when a run fails
-npx sheaf watch --interval 6h --out ./my-notion --git \
+npx vaultweave watch --interval 6h --out ./my-notion --git \
   --notify slack:https://hooks.slack.com/services/...
 ```
 
 Or run it fully managed in GitHub Actions — see
 [`templates/github-workflow.yml`](./templates/github-workflow.yml) for a
-scheduled daily backup (secrets: `SHEAF_TOKEN`, optional `SHEAF_ALERT`).
+scheduled daily backup (secrets: `VAULTWEAVE_TOKEN`, optional `VAULTWEAVE_ALERT`).
 
 ## Running unattended
 
-A backup nobody notices failing is worse than no backup. `sheaf` is built so failure is loud:
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/watch-mode-diagram.svg">
+  <img src="assets/watch-mode-diagram.svg" alt="vaultweave watch mode and alerting" width="900">
+</picture>
+
+A backup nobody notices failing is worse than no backup. `vaultweave` is built so failure is loud:
 
 - **Exit codes:** `0` ok · `1` failed or incomplete · `3` skipped because another run holds the lock.
 - **Alerts:** `--notify` (repeatable) or `notify.on_error` in the config. Targets: `webhook:<url>` (JSON),
@@ -91,9 +103,16 @@ A backup nobody notices failing is worse than no backup. `sheaf` is built so fai
 
 Details, payload schema and a systemd unit: [docs/operations.md](./docs/operations.md).
 
+## Output formats
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/output-formats.svg">
+  <img src="assets/output-formats.svg" alt="vaultweave output formats" width="900">
+</picture>
+
 ## Targets
 
-`sheaf sync` always writes to the local filesystem (`out:`) and can optionally write to
+`vaultweave sync` always writes to the local filesystem (`out:`) and can optionally write to
 additional targets. Git is enabled with `git: true` or `--git`. S3-compatible storage is
 configured with the AWS credential chain (environment, shared AWS config, or instance role):
 
@@ -115,6 +134,11 @@ independently, so one upload error is reported without stopping the other files.
 
 ## What gets backed up
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/capability-matrix.svg">
+  <img src="assets/capability-matrix.svg" alt="vaultweave capability matrix" width="900">
+</picture>
+
 | Content | Output | Status |
 |---|---|---|
 | Pages & nested blocks | `path/to/page.md` + YAML frontmatter | 🚧 planned |
@@ -130,7 +154,12 @@ We never claim "full backup". The complete, machine-checked matrix lives in
 
 ## Features
 
-- **Incremental** — content-hash diffing means re-runs cost almost no API calls.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/features-banner.svg">
+  <img src="assets/features-banner.svg" alt="vaultweave core features" width="900">
+</picture>
+
+- **Incremental writes** — content-hash diffing avoids rewriting unchanged files; each run still reads the workspace from Notion.
 - **Rate-limit safe** — token-bucket pacing under Notion's 3 req/s average.
 - **Point-in-time history** — every sync is a Git commit; roll back to any day.
 - **Zero silent failures** — structured run reports; failures alert your
@@ -142,6 +171,11 @@ We never claim "full backup". The complete, machine-checked matrix lives in
 
 ## How it works
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/architecture-diagram.svg">
+  <img src="assets/architecture-diagram.svg" alt="vaultweave architecture diagram" width="900">
+</picture>
+
 ```
 Notion API ──▶ Extractor ──▶ Normalizer (IR) ──▶ Renderers (md/csv/json)
                                               │
@@ -152,25 +186,25 @@ Notion API ──▶ Extractor ──▶ Normalizer (IR) ──▶ Renderers (md
                                    Run report ──▶ Notifier ──▶ you
 ```
 
-`sheaf sync` is resumable, idempotent, and safe to run from cron,
+`vaultweave sync` is resumable, idempotent, and safe to run from cron,
 a daemon, or CI.
 
 ## Configuration
 
-Minimal `.sheaf.yaml`:
+Minimal `.vaultweave.yaml`:
 
 ```yaml
-token: ${SHEAF_TOKEN}        # env expansion supported
-out: ./sheaf-backup
+token: ${VAULTWEAVE_TOKEN}        # env expansion supported
+out: ./vaultweave-backup
 git: true                     # auto-commit per run
-interval: 6h                  # used by `sheaf watch` (minimum 1m)
+interval: 6h                  # used by `vaultweave watch` (minimum 1m)
 notify:
   on_error: slack:${SLACK_WEBHOOK}      # one target, or a list of targets
   on_success: silent
 # `ignore:` and `redact:` are supported by sync configuration.
 ```
 
-Run `npx sheaf doctor` to check the token (reachability and content access), the freshness of your last
+Run `npx vaultweave doctor` to check the token (reachability and content access), the freshness of your last
 backup, git readiness and stuck downloads; add `--deep` to also detect backed-up pages that are no longer
 reachable.
 
@@ -185,12 +219,12 @@ reachable.
 ## Install
 
 ```bash
-npm i -g sheaf        # or: bun add -g sheaf
-brew install YOU/tap/sheaf   # macOS
+npm i -g vaultweave        # or: bun add -g vaultweave
+brew install joksure/tap/vaultweave   # macOS
 ```
 
 Standalone binaries (Linux/macOS/Windows) are attached to every
-[release](https://github.com/YOU/sheaf/releases).
+[release](https://github.com/joksure/vaultweave/releases).
 
 ## Roadmap
 

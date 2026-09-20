@@ -1,4 +1,4 @@
-# Contributing to sheaf
+# Contributing to vaultweave
 
 Thanks for helping! This project's core promise is **honesty and reliability**, so a few rules matter more than usual.
 
@@ -18,12 +18,12 @@ Thanks for helping! This project's core promise is **honesty and reliability**, 
 ## Setup
 
 ```bash
-git clone https://github.com/YOU/sheaf && cd sheaf
+git clone https://github.com/joksure/vaultweave && cd vaultweave
 nvm use && npm ci
 npm run lint && npm run typecheck && npm test && npm run build
 ```
 
-Tests run fully offline; never commit a real `SHEAF_TOKEN`.
+Tests run fully offline; never commit a real `VAULTWEAVE_TOKEN`.
 
 ## Pull requests
 
@@ -34,7 +34,7 @@ Tests run fully offline; never commit a real `SHEAF_TOKEN`.
 
 ## Reporting bugs
 
-Use the bug template and attach the output of `npx sheaf doctor --json`.
+Use the bug template and attach the output of `npx vaultweave doctor --json`.
 For security issues **do not open a public issue** — see [SECURITY.md](./SECURITY.md).
 
 ## Good first contributions
