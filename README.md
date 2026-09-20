@@ -1,47 +1,47 @@
-<div align="center">
-
-<img src="assets/social-preview-v2.svg" alt="vaultweave — Your Notion, out of Notion" width="900">
+<p align="center">
+  <img src="assets/social-preview-v2.svg" alt="vaultweave — Your Notion, out of Notion" />
+</p>
 
 # vaultweave
 
 **Your Notion, out of Notion.**
 
 Open-source CLI that turns your Notion workspace into portable, versioned,
-human-readable files — Markdown, CSV, JSON, and your attachments — with
-incremental sync straight into a Git repository.
+human-readable files — Markdown, CSV, JSON, and your attachments — written
+incrementally into a folder and, optionally, a Git repository or S3 bucket.
 
 [![CI](https://img.shields.io/github/actions/workflow/status/joksure/vaultweave/ci.yml?branch=main)](https://github.com/joksure/vaultweave/actions)
-[![npm](https://img.shields.io/npm/v/vaultweave)](https://www.npmjs.com/package/vaultweave)
-[![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
-[![status](https://img.shields.io/badge/status-pre--1.0-orange)]()
-
-</div>
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![status](https://img.shields.io/badge/status-early%20development-orange)](CAPABILITIES.md)
 
 ---
 
-> **⚠️ Status: early development (M4 — operations layer).**
-> Working today: `sync` (Markdown / CSV / JSON output, hash-based change detection, Git history,
-> deletion tombstones), `watch` (daemon), failure alerts (webhook / Slack / Discord), `doctor`,
-> `capabilities`, and the experimental `extract` command. See [docs/operations.md](./docs/operations.md).
+> **⚠️ Status: early development (M4 — operations layer).** The `1.0.0` version
+> number comes from release automation and does **not** mean the CLI or config
+> format is stable: flags and config keys may still change.
+>
+> **Working today:** `sync` (Markdown / CSV / JSON output, hash-based change
+> detection, Git history, deletion tombstones, optional S3 target), `watch`
+> (daemon), failure alerts (webhook / Slack / Discord), `doctor`, `capabilities`,
+> and the experimental `extract` command. See [docs/operations.md](docs/operations.md).
 >
 > **Known gaps, stated plainly:**
-> - `backup` and `verify` are not implemented (exit code 2).
-> - Every sync still re-reads the whole workspace from Notion; only *writing* is incremental. A run costs
->   the same number of API requests as a full one.
-> - `ignore:` and `redact:` are accepted in the config but **not applied yet** — do not rely on them to
->   keep data out of your backup.
-> - Not yet published to npm or Homebrew.
 >
-> The live status of every capability is tracked in [CAPABILITIES.md](./CAPABILITIES.md).
+> - `backup` and `verify` are not implemented (exit code 2).
+> - Every sync still re-reads the whole workspace from Notion; only *writing* is
+>   incremental. A run costs the same number of API requests as a full one.
+> - `ignore:` and `redact:` are accepted in the config but **not applied yet** —
+>   do not rely on them to keep data out of your backup.
+> - Not yet published to npm or Homebrew, and no release binaries yet. Until then,
+>   [build from source](#install).
+>
+> The live status of every capability is tracked in [CAPABILITIES.md](CAPABILITIES.md).
 
 ---
 
 ## Why this exists
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/why-banner.svg">
-  <img src="assets/why-banner.svg" alt="Problems vaultweave solves" width="900">
-</picture>
+![Problems vaultweave solves](assets/why-banner.svg)
 
 Notion is where your team thinks. But getting your data *out* — reliably,
 automatically, in a format that survives anything — is harder than it should be:
@@ -57,64 +57,68 @@ automatically, in a format that survives anything — is harder than it should b
 - **Existing OSS backup tools** scrape a browser cookie (`token_v2`) that
   expires, breaks, and is unsupported.
 
-`vaultweave` gives you a backup that is **rolling, automated, honest about
-what it can capture, and stored in formats that will outlive any single app.**
-If Notion disappeared tomorrow, your `main` branch would still open in any
-text editor — and be directly readable by AI coding agents.
+`vaultweave` aims to give you a backup that is **rolling, automated, honest about
+what it can capture, and stored in formats that will outlive any single app.** If
+Notion disappeared tomorrow, your `main` branch would still open in any text
+editor — and be directly readable by AI coding agents.
 
 ## Quickstart
+
+Not on npm yet, so build from source first (see [Install](#install)); the
+`vaultweave` command below is what `npm link` gives you. Once the package is
+published, `npx vaultweave <command>` will work the same way.
 
 ```bash
 export VAULTWEAVE_TOKEN=secret_...            # prefer the env var over --token
 
 # one-shot sync into a folder
-npx vaultweave sync --out ./my-notion
+vaultweave sync --out ./my-notion
 
 # …and commit every run to a git repo inside that folder
-npx vaultweave sync --out ./my-notion --git
+vaultweave sync --out ./my-notion --git
 
 # daemon: sync every 6 hours, alert Slack when a run fails
-npx vaultweave watch --interval 6h --out ./my-notion --git \
+vaultweave watch --interval 6h --out ./my-notion --git \
   --notify slack:https://hooks.slack.com/services/...
 ```
 
 Or run it fully managed in GitHub Actions — see
-[`templates/github-workflow.yml`](./templates/github-workflow.yml) for a
-scheduled daily backup (secrets: `VAULTWEAVE_TOKEN`, optional `VAULTWEAVE_ALERT`).
+[`templates/github-workflow.yml`](templates/github-workflow.yml) for a scheduled
+daily backup (secrets: `VAULTWEAVE_TOKEN`, optional `VAULTWEAVE_ALERT`).
 
 ## Running unattended
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/watch-mode-diagram.svg">
-  <img src="assets/watch-mode-diagram.svg" alt="vaultweave watch mode and alerting" width="900">
-</picture>
+![vaultweave watch mode and alerting](assets/watch-mode-diagram.svg)
 
-A backup nobody notices failing is worse than no backup. `vaultweave` is built so failure is loud:
+A backup nobody notices failing is worse than no backup. `vaultweave` is built so
+failure is loud:
 
-- **Exit codes:** `0` ok · `1` failed or incomplete · `3` skipped because another run holds the lock.
-- **Alerts:** `--notify` (repeatable) or `notify.on_error` in the config. Targets: `webhook:<url>` (JSON),
-  `slack:<url>`, `discord:<url>`. Alerts fire on the 1st consecutive failure, then the 2nd, 4th, 8th…, and
-  one *recovered* notice follows the next success. Alert text contains counts and error codes — never page
-  content — and webhook URLs and tokens are scrubbed from every message and log line.
-- **`watch`:** never overlaps runs, retries early after a failure (5m, 10m, 20m… up to the interval), and stops
-  gracefully on SIGINT/SIGTERM.
-- **`doctor`:** flags a stale backup, a failed last run, missing `git`, stuck downloads and — with `--deep` —
-  backed-up pages Notion no longer shows to the integration.
+- **Exit codes:** `0` ok · `1` failed or incomplete · `3` skipped because another
+  run holds the lock.
+- **Alerts:** `--notify` (repeatable) or `notify.on_error` in the config. Targets:
+  `webhook:<url>` (JSON), `slack:<url>`, `discord:<url>`. Alerts fire on the 1st
+  consecutive failure, then the 2nd, 4th, 8th…, and one *recovered* notice
+  follows the next success. Alert text contains counts and error codes — never
+  page content — and webhook URLs and tokens are scrubbed from every message and
+  log line.
+- **`watch`:** never overlaps runs, retries early after a failure (5m, 10m, 20m…
+  up to the interval), and stops gracefully on SIGINT/SIGTERM.
+- **`doctor`:** flags a stale backup, a failed last run, missing `git`, stuck
+  downloads and — with `--deep` — backed-up pages Notion no longer shows to the
+  integration.
 
-Details, payload schema and a systemd unit: [docs/operations.md](./docs/operations.md).
+Details, payload schema and a systemd unit: [docs/operations.md](docs/operations.md).
 
 ## Output formats
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/output-formats.svg">
-  <img src="assets/output-formats.svg" alt="vaultweave output formats" width="900">
-</picture>
+![vaultweave output formats](assets/output-formats.svg)
 
 ## Targets
 
-`vaultweave sync` always writes to the local filesystem (`out:`) and can optionally write to
-additional targets. Git is enabled with `git: true` or `--git`. S3-compatible storage is
-configured with the AWS credential chain (environment, shared AWS config, or instance role):
+`vaultweave sync` always writes to the local filesystem (`out:`) and can
+optionally write to additional targets. Git is enabled with `git: true` or
+`--git`. S3-compatible storage is configured with the AWS credential chain
+(environment, shared AWS config, or instance role):
 
 ```yaml
 targets:
@@ -127,41 +131,40 @@ targets:
 ```
 
 The equivalent CLI options are `--s3-bucket`, `--s3-prefix`, `--s3-region`,
-`--s3-endpoint`, and `--s3-force-path-style`. S3 is an optional dependency; installs that
-do not use an S3 target do not load the AWS SDK. Each object is compared by content hash,
-then uploaded through a temporary key and copied to its final key. Files are handled
-independently, so one upload error is reported without stopping the other files.
+`--s3-endpoint`, and `--s3-force-path-style`. S3 is an optional dependency;
+installs that do not use an S3 target do not load the AWS SDK. Each object is
+compared by content hash, then uploaded through a temporary key and copied to its
+final key. Files are handled independently, so one upload error is reported
+without stopping the other files.
 
 ## What gets backed up
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/capability-matrix.svg">
-  <img src="assets/capability-matrix.svg" alt="vaultweave capability matrix" width="900">
-</picture>
+![vaultweave capability matrix](assets/capability-matrix.svg)
 
-| Content | Output | Status |
-|---|---|---|
-| Pages & nested blocks | `path/to/page.md` + YAML frontmatter | 🚧 planned |
-| Databases (schema + rows) | `db.csv` + `db.json` (relations preserved) | 🚧 planned |
-| Images / files / attachments | `assets/` (re-hosted copies) | 🚧 planned |
-| Comments | `page.comments.md` | 🚧 planned |
-| Database views (table/board/calendar/…) | view definitions as JSON (`db.views.json`) | 🚧 planned |
-| Automations, button configs | stub comment in output | ⚠️ API limit |
+✅ = written by `sync` today · 🚧 = not complete yet · ⚠️ = limited by the Notion API
+
+| Content                                 | Output                                     | Status       |
+| --------------------------------------- | ------------------------------------------ | ------------ |
+| Pages & nested blocks                   | `path/to/page.md` + YAML frontmatter       | ✅            |
+| Databases (schema + rows)               | `db.csv` + `db.json` (relations preserved) | ✅            |
+| Images / files / attachments            | `assets/` (re-hosted copies)               | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
+| Comments                                | `page.comments.md`                         | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
+| Database views (table/board/calendar/…) | view definitions as JSON (`db.views.json`) | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
+| Automations, button configs             | stub comment in output                     | ⚠️ API limit |
 
 We never claim "full backup". The complete, machine-checked matrix lives in
-[CAPABILITIES.md](./CAPABILITIES.md), and anything not exported is marked
+[CAPABILITIES.md](CAPABILITIES.md), and anything not exported is marked
 **explicitly** in your output — silence is never mistaken for success.
 
 ## Features
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/features-banner.svg">
-  <img src="assets/features-banner.svg" alt="vaultweave core features" width="900">
-</picture>
+![vaultweave core features](assets/features-banner.svg)
 
-- **Incremental writes** — content-hash diffing avoids rewriting unchanged files; each run still reads the workspace from Notion.
+- **Incremental writes** — content-hash diffing avoids rewriting unchanged files;
+  each run still reads the whole workspace from Notion.
 - **Rate-limit safe** — token-bucket pacing under Notion's 3 req/s average.
-- **Point-in-time history** — every sync is a Git commit; roll back to any day.
+- **Point-in-time history** — with `--git`, every sync is a Git commit; roll back
+  to any day.
 - **Zero silent failures** — structured run reports; failures alert your
   webhook/Slack/Discord *before* the process exits non-zero.
 - **Honest** — unsupported content is labelled, not dropped quietly.
@@ -171,10 +174,7 @@ We never claim "full backup". The complete, machine-checked matrix lives in
 
 ## How it works
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/architecture-diagram.svg">
-  <img src="assets/architecture-diagram.svg" alt="vaultweave architecture diagram" width="900">
-</picture>
+![vaultweave architecture diagram](assets/architecture-diagram.svg)
 
 ```
 Notion API ──▶ Extractor ──▶ Normalizer (IR) ──▶ Renderers (md/csv/json)
@@ -186,8 +186,8 @@ Notion API ──▶ Extractor ──▶ Normalizer (IR) ──▶ Renderers (md
                                    Run report ──▶ Notifier ──▶ you
 ```
 
-`vaultweave sync` is resumable, idempotent, and safe to run from cron,
-a daemon, or CI.
+`vaultweave sync` is resumable, idempotent, and safe to run from cron, a daemon,
+or CI.
 
 ## Configuration
 
@@ -196,44 +196,59 @@ Minimal `.vaultweave.yaml`:
 ```yaml
 token: ${VAULTWEAVE_TOKEN}        # env expansion supported
 out: ./vaultweave-backup
-git: true                     # auto-commit per run
-interval: 6h                  # used by `vaultweave watch` (minimum 1m)
+git: true                         # auto-commit per run
+interval: 6h                      # used by `vaultweave watch` (minimum 1m)
 notify:
   on_error: slack:${SLACK_WEBHOOK}      # one target, or a list of targets
   on_success: silent
-# `ignore:` and `redact:` are supported by sync configuration.
+# `ignore:` and `redact:` are accepted but NOT APPLIED YET — see Security.
 ```
 
-Run `npx vaultweave doctor` to check the token (reachability and content access), the freshness of your last
-backup, git readiness and stuck downloads; add `--deep` to also detect backed-up pages that are no longer
-reachable.
+Run `vaultweave doctor` to check the token (reachability and content access), the
+freshness of your last backup, git readiness and stuck downloads; add `--deep` to
+also detect backed-up pages that are no longer reachable.
 
 ## Security
 
 - Token comes from env/secret stores only — **never** written into the synced repo.
-- Output redaction is available through `redact:` patterns in configuration.
+- **Output redaction is not available yet.** The `redact:` and `ignore:` config
+  keys are accepted but not applied, so treat your backup as containing
+  everything the integration can see.
 - An internal-API fast path exists for power users, but requires an explicit
   risk acknowledgement; the official-API path is the default and fully supported.
-- See [docs/security.md](./docs/security.md).
+- See [docs/security.md](docs/security.md).
 
 ## Install
 
+**From source (works today):**
+
 ```bash
-npm i -g vaultweave        # or: bun add -g vaultweave
-brew install joksure/tap/vaultweave   # macOS
+git clone https://github.com/joksure/vaultweave.git
+cd vaultweave
+nvm use            # Node 22+ (see .nvmrc)
+npm ci
+npm run build
+npm link           # exposes the `vaultweave` command
 ```
 
-Standalone binaries (Linux/macOS/Windows) are attached to every
-[release](https://github.com/joksure/vaultweave/releases).
+**Planned, not published yet:**
+
+- `npm i -g vaultweave` (or `bun add -g vaultweave`)
+- `brew install joksure/tap/vaultweave` (macOS)
+- Standalone binaries (Linux/macOS/Windows) attached to releases
 
 ## Roadmap
 
 - [x] Scaffolding, CI, CLI skeleton, `doctor`, config, rate limiter (M0)
 - [x] Official-API extractor: block trees, databases, views, files, pacing and retry (M1) — experimental `extract`
 - [x] Markdown/CSV/JSON renderers and filesystem target (M2)
-- [x] State DB, hash-based change detection, Git history, tombstones, incremental extraction (M3)
+- [x] State DB, hash-based change detection, Git history, tombstones, incremental writes (M3)
 - [x] Watch mode, notifiers, lock, run reports, extended `doctor`, Actions template (M4)
 - [x] S3/S3-compatible cloud target (AWS credential chain, optional dependency)
+- [ ] True incremental extraction (skip unchanged pages instead of re-reading the workspace)
+- [ ] Apply `ignore:` and `redact:` to output
+- [ ] `backup` and `verify` commands
+- [ ] First npm / Homebrew publish and release binaries
 - [ ] GCS / Google Drive cloud targets (plugin packages)
 - [ ] Read-only local MCP server over your synced repo
 - [ ] Team dashboard (sync health across workspaces)
@@ -250,13 +265,13 @@ npm run build
 npm run capabilities:check   # CAPABILITIES.md must match src/core/capabilities.ts
 ```
 
-The full design lives in [docs/architecture.md](./docs/architecture.md).
+The full design lives in [docs/architecture.md](docs/architecture.md).
 
 ## Contributing
 
-Contributions welcome — especially new renderers, notifier plugins, and
-recorded API fixtures for golden tests. Please run `npm test` and include a
-golden fixture for any extraction change. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+Contributions welcome — especially new renderers, notifier plugins, and recorded
+API fixtures for golden tests. Please run `npm test` and include a golden fixture
+for any extraction change. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Disclaimer
 
@@ -265,4 +280,4 @@ a trademark of Notion Labs, Inc. This tool uses the official Notion API.
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT — see [LICENSE](LICENSE).
