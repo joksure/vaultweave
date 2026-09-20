@@ -1,13 +1,13 @@
 /**
- * `sheaf sync` — incremental sync of a Notion workspace into the output directory.
+ * `vaultweave sync` — incremental sync of a Notion workspace into the output directory.
  *
  * Options:
- *   --token <token>   Notion integration token (prefer SHEAF_TOKEN env var)
- *   --out <dir>       output directory (default: config `out` or ./sheaf-backup)
+ *   --token <token>   Notion integration token (prefer VAULTWEAVE_TOKEN env var)
+ *   --out <dir>       output directory (default: config `out` or ./vaultweave-backup)
  *   --git             auto-commit each run to Git
  *   --since <date>    only pages edited since this ISO date (overrides stored cursor)
  *   --full            force a full re-extraction (ignores stored cursor)
- *   --config <path>   path to .sheaf.yaml
+ *   --config <path>   path to .vaultweave.yaml
  *   --no-row-bodies   skip page bodies of database rows (faster)
  *   --quiet           suppress progress output
  *
@@ -16,8 +16,8 @@
  *
  * Exit codes (see src/core/exit-codes.ts):
  *   0  — ok: true (complete sync, no errors)
- *   1  — ok: false (errors / aborted — see .sheaf-run-report.json) or invalid configuration
- *   3  — skipped: another sheaf run holds the lock for this output directory
+ *   1  — ok: false (errors / aborted — see .vaultweave-run-report.json) or invalid configuration
+ *   3  — skipped: another vaultweave run holds the lock for this output directory
  */
 
 import type { Command } from "commander";
@@ -102,7 +102,7 @@ export async function runSyncCommand(
   if (result.status === "skipped_locked") {
     const h = result.lockHolder;
     error(
-      `Skipped: another sheaf run is using ${settings.outDir}` +
+      `Skipped: another vaultweave run is using ${settings.outDir}` +
         (h ? ` (pid ${h.pid} on ${h.host}, since ${h.startedAt}).\n` : ".\n"),
     );
     return result.exitCode;
@@ -162,14 +162,14 @@ function printReport(r: RunReport, write: (s: string) => void): void {
     for (const i of items.slice(0, MAX_LISTED))
       lines.push(`  ${mark} [${i.code}] ${i.id}: ${i.message}`);
     if (items.length > MAX_LISTED)
-      lines.push(`  … and ${items.length - MAX_LISTED} more (see .sheaf-run-report.json)`);
+      lines.push(`  … and ${items.length - MAX_LISTED} more (see .vaultweave-run-report.json)`);
   };
   listIssues("Warnings", r.warnings, "⚠");
   listIssues("Errors", r.errors, "✖");
   if (r.aborted) lines.push(`✖ ABORTED: ${r.aborted}`);
 
   // Status line.
-  lines.push(r.ok ? "✓ OK" : "✖ INCOMPLETE — see .sheaf-run-report.json");
+  lines.push(r.ok ? "✓ OK" : "✖ INCOMPLETE — see .vaultweave-run-report.json");
 
   write(`${lines.join("\n")}\n`);
 }
@@ -180,12 +180,12 @@ export function registerSync(program: Command): void {
     .description(
       "Sync a Notion workspace to Markdown/CSV/JSON (only changed files are rewritten) + optional Git commit",
     )
-    .option("--token <token>", "Notion integration token (prefer SHEAF_TOKEN env var)")
-    .option("--out <dir>", "output directory (default: config `out` or ./sheaf-backup)")
+    .option("--token <token>", "Notion integration token (prefer VAULTWEAVE_TOKEN env var)")
+    .option("--out <dir>", "output directory (default: config `out` or ./vaultweave-backup)")
     .option("--git", "auto-commit the output directory to Git after each sync")
     .option("--since <date>", "only extract pages edited since this ISO date (overrides cursor)")
     .option("--full", "force a full re-extraction (ignore the stored last-sync cursor)")
-    .option("--config <path>", "path to .sheaf.yaml")
+    .option("--config <path>", "path to .vaultweave.yaml")
     .option("--no-row-bodies", "skip the page bodies of database rows (faster)")
     .option("--quiet", "suppress progress output (errors still go to stderr)")
     .option("--json", "print the run report as JSON on stdout (for CI and monitors)")

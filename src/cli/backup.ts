@@ -1,4 +1,4 @@
-/** `sheaf backup` — friendly one-shot backup entry point. */
+/** `vaultweave backup` — friendly one-shot backup entry point. */
 import type { Command } from "commander";
 import { runSyncCommand, type SyncCommandOptions } from "./sync.js";
 
@@ -19,9 +19,9 @@ export function registerBackup(program: Command): void {
   program
     .command("backup")
     .description("Back up a Notion workspace once (use sync for advanced options)")
-    .option("--token <token>", "Notion integration token (prefer SHEAF_TOKEN env var)")
-    .option("--out <dir>", "output directory (default: config `out` or ./sheaf-backup)")
-    .option("--config <path>", "path to .sheaf.yaml")
+    .option("--token <token>", "Notion integration token (prefer VAULTWEAVE_TOKEN env var)")
+    .option("--out <dir>", "output directory (default: config `out` or ./vaultweave-backup)")
+    .option("--config <path>", "path to .vaultweave.yaml")
     .option("--quiet", "suppress progress output")
     .option("--json", "print the run report as JSON")
     .action(async (opts: SyncCommandOptions) => {

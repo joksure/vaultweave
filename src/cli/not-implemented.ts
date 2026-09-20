@@ -4,7 +4,7 @@
  */
 export function notImplemented(command: string, milestone: string): void {
   process.stderr.write(
-    `sheaf ${command}: not implemented yet (planned for ${milestone}).\n` +
+    `vaultweave ${command}: not implemented yet (planned for ${milestone}).\n` +
       "See CAPABILITIES.md and docs/architecture.md for the roadmap.\n",
   );
   process.exitCode = 2;

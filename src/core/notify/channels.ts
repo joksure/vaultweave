@@ -50,7 +50,7 @@ export const webhookNotifier: NotifierFactory = (arg, ctx) =>
       const msg = buildMessage(event, secrets);
       const r = event.report;
       return {
-        event: `sheaf.sync.${event.kind}`,
+        event: `vaultweave.sync.${event.kind}`,
         ok: msg.ok,
         title: msg.title,
         summary: msg.summary,
@@ -75,7 +75,7 @@ export const webhookNotifier: NotifierFactory = (arg, ctx) =>
         },
       };
     },
-    (event) => ({ "x-sheaf-event": `sync.${event.kind}` }),
+    (event) => ({ "x-vaultweave-event": `sync.${event.kind}` }),
   );
 
 /** Slack incoming webhook. `& < >` are escaped so error text cannot trigger `<!channel>` pings. */
@@ -103,7 +103,7 @@ export const discordNotifier: NotifierFactory = (arg, ctx) =>
     const icon = msg.ok ? (event.kind === "recovered" ? "🟢" : "✅") : "🚨";
     let content = `${icon} **${msg.title}**\n${msg.summary}\n${fence(msg.details.join("\n"))}`;
     if (content.length > DISCORD_LIMIT) content = `${content.slice(0, DISCORD_LIMIT - 5)}\n\`\`\``;
-    return { username: "sheaf", content, allowed_mentions: { parse: [] } };
+    return { username: "vaultweave", content, allowed_mentions: { parse: [] } };
   });
 
 interface SmtpTarget {
@@ -151,8 +151,8 @@ export function registerSmtpNotifier(
 }
 
 export const smtpNotifier: NotifierFactory = (arg, ctx) => {
-  const configured = arg.startsWith("//") ? `smtp:${arg}` : arg || process.env.SHEAF_SMTP_URL;
-  if (!configured) throw new ConfigError("SMTP notifier needs a target or SHEAF_SMTP_URL");
+  const configured = arg.startsWith("//") ? `smtp:${arg}` : arg || process.env.VAULTWEAVE_SMTP_URL;
+  if (!configured) throw new ConfigError("SMTP notifier needs a target or VAULTWEAVE_SMTP_URL");
   const target = parseSmtpTarget(configured);
   const secretUrl = configured;
   const label = `smtp:${target.host}:${target.port}`;

@@ -103,7 +103,7 @@ export class S3Target implements SyncTarget {
       if (status !== 404 && status !== 403) throw error;
     }
 
-    const tempKey = `${key}.sheaf-upload-${process.pid}-${Date.now()}`;
+    const tempKey = `${key}.vaultweave-upload-${process.pid}-${Date.now()}`;
     try {
       await client.send(new sdk.PutObjectCommand({ Bucket: bucket, Key: tempKey, Body: body }));
       await client.send(

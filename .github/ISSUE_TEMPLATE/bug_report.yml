@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting! First check [CAPABILITIES.md](https://github.com/YOU/notion-portable/blob/main/CAPABILITIES.md) — content marked ❌ is a
+        Thanks for reporting! First check [CAPABILITIES.md](https://github.com/joksure/vaultweave/blob/main/CAPABILITIES.md) — content marked ❌ is a
         Notion API limit rather than a bug.
   - type: textarea
     id: what
@@ -25,8 +25,8 @@ body:
   - type: textarea
     id: doctor
     attributes:
-      label: "`notion-portable doctor --json` output"
-      description: Run `npx notion-portable doctor --json` and paste the result. It contains no token.
+      label: "`vaultweave doctor --json` output"
+      description: Run `npx vaultweave doctor --json` and paste the result. It contains no token.
       render: json
     validations:
       required: true
@@ -34,7 +34,7 @@ body:
     id: version
     attributes:
       label: Version
-      placeholder: "notion-portable --version"
+      placeholder: "vaultweave --version"
     validations:
       required: true
   - type: dropdown

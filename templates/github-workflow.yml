@@ -2,21 +2,21 @@
 #
 # Setup
 #   1. Create a PRIVATE repository (the backup contains your workspace content) and copy this file to
-#      `.github/workflows/sheaf-backup.yml`.
+#      `.github/workflows/vaultweave-backup.yml`.
 #   2. Repository secrets:
-#        SHEAF_TOKEN   (required)  Notion internal-integration token
-#        SHEAF_ALERT   (optional)  a full alert target, e.g.  slack:https://hooks.slack.com/services/…
+#        VAULTWEAVE_TOKEN   (required)  Notion internal-integration token
+#        VAULTWEAVE_ALERT   (optional)  a full alert target, e.g.  slack:https://hooks.slack.com/services/…
 #                                  or  discord:https://discord.com/api/webhooks/…  or  webhook:https://…
 #   3. Share the pages/databases you want backed up with the integration (••• → Connections).
 #
 # Failure handling — a failed backup is never silent:
-#   - `sheaf sync` exits non-zero when the backup is incomplete → this job fails → GitHub notifies you;
-#   - if SHEAF_ALERT is set, sheaf also alerts that channel (1st failure, then 2nd, 4th, 8th…) and
+#   - `vaultweave sync` exits non-zero when the backup is incomplete → this job fails → GitHub notifies you;
+#   - if VAULTWEAVE_ALERT is set, vaultweave also alerts that channel (1st failure, then 2nd, 4th, 8th…) and
 #     sends one "recovered" notice afterwards. The run history that drives this lives in the cached
 #     state DB; without a cache hit every failure alerts (the safe direction).
 #
-# Pin the sheaf version once you have tested it (`sheaf@1.2.3` instead of `sheaf@latest`).
-name: sheaf-backup
+# Pin the vaultweave version once you have tested it (`vaultweave@1.2.3` instead of `vaultweave@latest`).
+name: vaultweave-backup
 
 on:
   schedule:
@@ -27,7 +27,7 @@ permissions:
   contents: write # needed to push the backup commit
 
 concurrency:
-  group: sheaf-backup
+  group: vaultweave-backup
   cancel-in-progress: false
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-      # The repository is checked out INTO ./backup: that directory is the git repo sheaf commits to.
+      # The repository is checked out INTO ./backup: that directory is the git repo vaultweave commits to.
       - uses: actions/checkout@v4
         with:
           path: backup
@@ -44,37 +44,37 @@ jobs:
         with:
           node-version: 22
 
-      # State DB (sheaf.db): unchanged-page detection, deletion tombstones, run history for alerts.
-      # It is gitignored by sheaf, so it must travel through the cache instead. Saved even when the
+      # State DB (vaultweave.db): unchanged-page detection, deletion tombstones, run history for alerts.
+      # It is gitignored by vaultweave, so it must travel through the cache instead. Saved even when the
       # sync fails (`if: always()` below) so the failure streak survives to the next run.
-      - name: Restore sheaf state
+      - name: Restore vaultweave state
         uses: actions/cache/restore@v4
         with:
           path: |
-            backup/sheaf.db
-            backup/sheaf.db-wal
-            backup/sheaf.db-shm
-          key: sheaf-state-${{ github.run_id }}
-          restore-keys: sheaf-state-
+            backup/vaultweave.db
+            backup/vaultweave.db-wal
+            backup/vaultweave.db-shm
+          key: vaultweave-state-${{ github.run_id }}
+          restore-keys: vaultweave-state-
 
       - name: Sync Notion workspace
         env:
-          SHEAF_TOKEN: ${{ secrets.SHEAF_TOKEN }}
-          SHEAF_ALERT: ${{ secrets.SHEAF_ALERT }}
+          VAULTWEAVE_TOKEN: ${{ secrets.VAULTWEAVE_TOKEN }}
+          VAULTWEAVE_ALERT: ${{ secrets.VAULTWEAVE_ALERT }}
         run: |
           args=(--out ./backup --git --quiet)
-          if [ -n "$SHEAF_ALERT" ]; then args+=(--notify "$SHEAF_ALERT"); fi
-          npx --yes sheaf@latest sync "${args[@]}"
+          if [ -n "$VAULTWEAVE_ALERT" ]; then args+=(--notify "$VAULTWEAVE_ALERT"); fi
+          npx --yes vaultweave@latest sync "${args[@]}"
 
-      - name: Save sheaf state
+      - name: Save vaultweave state
         if: always()
         uses: actions/cache/save@v4
         with:
           path: |
-            backup/sheaf.db
-            backup/sheaf.db-wal
-            backup/sheaf.db-shm
-          key: sheaf-state-${{ github.run_id }}
+            backup/vaultweave.db
+            backup/vaultweave.db-wal
+            backup/vaultweave.db-shm
+          key: vaultweave-state-${{ github.run_id }}
 
       # Push whatever was committed, even after a partially failed sync: a partial backup is still
       # real history. Skipped only when the job was cancelled.

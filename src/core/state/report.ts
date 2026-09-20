@@ -1,8 +1,8 @@
 /**
- * Structured run report emitted after every sheaf sync run (P4: no silent failures).
+ * Structured run report emitted after every vaultweave sync run (P4: no silent failures).
  *
- * Saved to `<outDir>/sheaf.db` (run_reports table) and written as
- * `<outDir>/.sheaf-run-report.json` for CI/monitoring consumers.
+ * Saved to `<outDir>/vaultweave.db` (run_reports table) and written as
+ * `<outDir>/.vaultweave-run-report.json` for CI/monitoring consumers.
  *
  * Exit-code contract:
  *   0 — ok: true  (no errors, no aborted)

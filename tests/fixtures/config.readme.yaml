@@ -1,5 +1,5 @@
-token: ${SHEAF_TOKEN}        # env expansion supported
-out: ./sheaf-backup
+token: ${VAULTWEAVE_TOKEN}        # env expansion supported
+out: ./vaultweave-backup
 git: true                     # auto-commit per run
 ignore:
   - "Private/**"              # glob paths excluded from sync

@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 200" role="img" aria-labelledby="feat-title">
+  <title id="feat-title">vaultweave core features</title>
+  <defs>
+    <linearGradient id="fbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c1512"/>
+      <stop offset="1" stop-color="#111e1a"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="200" fill="url(#fbg)" rx="12"/>
+
+  <!-- Subtle horizontal rule -->
+  <line x1="0" y1="100" x2="900" y2="100" stroke="#1c2f28" stroke-width="1"/>
+
+  <!-- Feature 1: Incremental -->
+  <g transform="translate(30, 36)">
+    <text x="0" y="0" font-size="32">⚡</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">Incremental writes</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Content-hash diffing. Only changed files</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">are rewritten on every sync run.</text>
+  </g>
+
+  <!-- Feature 2: Git history -->
+  <g transform="translate(230, 36)">
+    <text x="0" y="0" font-size="32">🕰</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">Point-in-time history</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Every sync is a Git commit. Roll back</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">to any day. No third-party dependency.</text>
+  </g>
+
+  <!-- Feature 3: Honest -->
+  <g transform="translate(460, 36)">
+    <text x="0" y="0" font-size="32">📋</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">Honest capability matrix</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Unsupported content is labelled in output,</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">never silently dropped.</text>
+  </g>
+
+  <!-- Feature 4: Zero silent failures -->
+  <g transform="translate(690, 36)">
+    <text x="0" y="0" font-size="32">🔔</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">Zero silent failures</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Structured run reports + alerts fire</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">before the process exits non-zero.</text>
+  </g>
+
+  <!-- Feature 5: Rate-limit safe -->
+  <g transform="translate(30, 128)">
+    <text x="0" y="0" font-size="32">🛡</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">Rate-limit safe</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Token-bucket pacing keeps you under</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Notion's 3 req/s average.</text>
+  </g>
+
+  <!-- Feature 6: Multi-target -->
+  <g transform="translate(230, 128)">
+    <text x="0" y="0" font-size="32">☁</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">Multi-target sync</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Filesystem + Git + S3 / R2 / MinIO</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">simultaneously. AWS cred chain.</text>
+  </g>
+
+  <!-- Feature 7: AI-friendly -->
+  <g transform="translate(460, 128)">
+    <text x="0" y="0" font-size="32">🤖</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">Agent-friendly output</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Clean Markdown, no Notion noise. Point</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">Claude Code or Cursor at the backup.</text>
+  </g>
+
+  <!-- Feature 8: CI-native -->
+  <g transform="translate(690, 128)">
+    <text x="0" y="0" font-size="32">🔁</text>
+    <text x="42" y="-4" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+          font-size="15" font-weight="700">CI-native &amp; headless</text>
+    <text x="42" y="16" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">GitHub Actions template included.</text>
+    <text x="42" y="31" fill="#6b9b8f" font-family="Arial, Helvetica, sans-serif"
+          font-size="12">cron · daemon · one-shot all work.</text>
+  </g>
+</svg>

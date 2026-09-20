@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="sp-title sp-desc">
+  <title id="sp-title">vaultweave — Your Notion, out of Notion.</title>
+  <desc id="sp-desc">vaultweave backs up Notion workspaces to portable Markdown, CSV, JSON and assets versioned in Git.</desc>
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c1512"/>
+      <stop offset="1" stop-color="#0f1e1a"/>
+    </linearGradient>
+    <linearGradient id="teal-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#55d6be"/>
+      <stop offset="1" stop-color="#2ebfa6"/>
+    </linearGradient>
+    <linearGradient id="line-fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#55d6be" stop-opacity="0"/>
+      <stop offset="0.3" stop-color="#55d6be" stop-opacity="0.6"/>
+      <stop offset="0.7" stop-color="#55d6be" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#55d6be" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="soft-glow">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <pattern id="dots" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#55d6be" opacity="0.12"/>
+    </pattern>
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="1280" height="640" rx="0"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg-grad)"/>
+  <rect width="1280" height="640" fill="url(#dots)"/>
+
+  <!-- Ambient glow blobs -->
+  <ellipse cx="200" cy="580" rx="300" ry="200" fill="#55d6be" opacity="0.04"/>
+  <ellipse cx="1100" cy="80" rx="250" ry="180" fill="#f0b45b" opacity="0.04"/>
+
+  <!-- Left panel — logo + name -->
+  <g transform="translate(80, 160)">
+    <!-- Logo box -->
+    <rect width="128" height="128" rx="28" fill="#152720" stroke="#55d6be" stroke-width="2" opacity="0.9"/>
+    <!-- Logo mark (S-curve weave) -->
+    <path d="M28 48c0-10 8-18 18-18h38c10 0 18 8 18 18s-8 18-18 18H50c-10 0-18 8-18 18s8 18 18 18h38"
+          fill="none" stroke="#55d6be" stroke-width="11" stroke-linecap="round"/>
+    <path d="M28 66h38c10 0 18 8 18 18s-8 18-18 18H28"
+          fill="none" stroke="#e9f5f1" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="28" cy="48" r="6" fill="#f0b45b"/>
+    <circle cx="100" cy="102" r="6" fill="#f0b45b"/>
+
+    <!-- Name -->
+    <text x="152" y="76" fill="#e9f5f1" font-family="'Arial Black', Arial, Helvetica, sans-serif"
+          font-size="72" font-weight="900" letter-spacing="-2">vaultweave</text>
+    <text x="152" y="115" fill="#71a99a" font-family="Arial, Helvetica, sans-serif"
+          font-size="26" font-weight="400" letter-spacing="1">github.com/joksure/vaultweave</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="80" y="360" fill="#e9f5f1" font-family="'Arial Black', Arial, Helvetica, sans-serif"
+        font-size="42" font-weight="700">Your Notion, out of Notion.</text>
+  <text x="80" y="404" fill="#8fbfb4" font-family="Arial, Helvetica, sans-serif"
+        font-size="24">Portable Markdown · CSV · JSON · assets — versioned in Git, backed to S3.</text>
+
+  <!-- Divider -->
+  <rect x="80" y="430" width="480" height="2" fill="url(#line-fade)" rx="1"/>
+
+  <!-- Feature pills row -->
+  <g font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">
+    <!-- Pill 1 -->
+    <rect x="80" y="448" width="166" height="40" rx="20" fill="#1a2f28" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="102" y="473" fill="#55d6be">⚡ Incremental</text>
+    <!-- Pill 2 -->
+    <rect x="258" y="448" width="164" height="40" rx="20" fill="#1a2f28" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="278" y="473" fill="#55d6be">🔒 Honest gaps</text>
+    <!-- Pill 3 -->
+    <rect x="434" y="448" width="146" height="40" rx="20" fill="#1a2f28" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="454" y="473" fill="#55d6be">🤖 CI-native</text>
+  </g>
+
+  <!-- Badge row -->
+  <g font-family="'Courier New', monospace" font-size="15">
+    <rect x="80" y="504" width="90" height="28" rx="5" fill="#2b4d44"/>
+    <text x="100" y="523" fill="#55d6be" text-anchor="middle">MIT</text>
+    <rect x="182" y="504" width="120" height="28" rx="5" fill="#2b4d44"/>
+    <text x="242" y="523" fill="#55d6be" text-anchor="middle">Node ≥ 22</text>
+    <rect x="314" y="504" width="110" height="28" rx="5" fill="#2b4d44"/>
+    <text x="369" y="523" fill="#f0b45b" text-anchor="middle">pre-1.0</text>
+  </g>
+
+  <!-- Right panel — terminal window -->
+  <g transform="translate(700, 120)">
+    <!-- Terminal chrome -->
+    <rect width="508" height="400" rx="14" fill="#0a1510" stroke="#2a3d36" stroke-width="2"/>
+    <!-- Title bar -->
+    <rect width="508" height="40" rx="14" fill="#172620"/>
+    <rect x="0" y="26" width="508" height="14" fill="#172620"/>
+    <!-- Traffic lights -->
+    <circle cx="22" cy="20" r="7" fill="#ff5f57"/>
+    <circle cx="44" cy="20" r="7" fill="#febc2e"/>
+    <circle cx="66" cy="20" r="7" fill="#28c840"/>
+    <!-- Window title -->
+    <text x="254" y="25" fill="#4a6b60" font-family="Arial, Helvetica, sans-serif"
+          font-size="13" text-anchor="middle">bash — vaultweave</text>
+
+    <!-- Terminal content -->
+    <g font-family="'Courier New', monospace" font-size="15" fill="#8fbfb4">
+      <!-- Prompt line 1 -->
+      <text x="20" y="72">
+        <tspan fill="#55d6be">❯</tspan>
+        <tspan fill="#8fbfb4"> export VAULTWEAVE_TOKEN=secret_...</tspan>
+      </text>
+
+      <!-- Prompt line 2 -->
+      <text x="20" y="104">
+        <tspan fill="#55d6be">❯</tspan>
+        <tspan fill="#8fbfb4"> npx vaultweave </tspan>
+        <tspan fill="#e9f5f1" font-weight="bold">sync</tspan>
+        <tspan fill="#8fbfb4"> --out ./backup --git</tspan>
+      </text>
+
+      <!-- Output block -->
+      <text x="20" y="136" fill="#4a6b60">  vaultweave v0.1.0 · official API</text>
+
+      <text x="20" y="163">
+        <tspan fill="#f0b45b">  ✔</tspan>
+        <tspan fill="#6b9b8f"> token OK  · 3 workspaces</tspan>
+      </text>
+      <text x="20" y="188">
+        <tspan fill="#55d6be">  ↓</tspan>
+        <tspan fill="#6b9b8f"> extracting pages…  </tspan>
+        <tspan fill="#e9f5f1">142 / 142</tspan>
+      </text>
+      <text x="20" y="213">
+        <tspan fill="#55d6be">  ↓</tspan>
+        <tspan fill="#6b9b8f"> databases… </tspan>
+        <tspan fill="#e9f5f1">8 tables · 2 341 rows</tspan>
+      </text>
+      <text x="20" y="238">
+        <tspan fill="#55d6be">  ↓</tspan>
+        <tspan fill="#6b9b8f"> assets… </tspan>
+        <tspan fill="#e9f5f1">34 files fetched</tspan>
+      </text>
+      <text x="20" y="263">
+        <tspan fill="#55d6be">  ↓</tspan>
+        <tspan fill="#6b9b8f"> writing incremental diff</tspan>
+      </text>
+
+      <!-- Spacer line -->
+      <text x="20" y="290" fill="#2a3d36">  ────────────────────────────────────</text>
+
+      <text x="20" y="318">
+        <tspan fill="#f0b45b">  ✔</tspan>
+        <tspan fill="#6b9b8f"> 12 changed · 0 deleted · </tspan>
+        <tspan fill="#55d6be">0 silent</tspan>
+      </text>
+      <text x="20" y="343">
+        <tspan fill="#f0b45b">  ✔</tspan>
+        <tspan fill="#6b9b8f"> git commit </tspan>
+        <tspan fill="#e9f5f1">a4f82c1</tspan>
+        <tspan fill="#6b9b8f"> · 4.2 s</tspan>
+      </text>
+
+      <!-- Cursor blink -->
+      <text x="20" y="374" fill="#55d6be">❯ <tspan fill="#55d6be" opacity="0.8">█</tspan></text>
+    </g>
+  </g>
+
+  <!-- Bottom attribution -->
+  <text x="80" y="620" fill="#2e4d45" font-family="Arial, Helvetica, sans-serif" font-size="16">
+    Not affiliated with Notion Labs, Inc. · Uses the official Notion API · MIT License
+  </text>
+</svg>

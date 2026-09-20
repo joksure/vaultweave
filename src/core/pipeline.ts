@@ -1,5 +1,5 @@
 /**
- * Sheaf sync pipeline (M3).
+ * Vaultweave sync pipeline (M3).
  *
  * Orchestrates the full incremental sync cycle:
  *   1. Load state DB → get last-sync cursor.
@@ -9,7 +9,7 @@
  *   5. Tombstone deleted pages (visible stubs, not silent rm).
  *   6. Update state DB (hashes, cursor).
  *   7. Optionally commit to Git.
- *   8. Save run report → DB + .sheaf-run-report.json.
+ *   8. Save run report → DB + .vaultweave-run-report.json.
  *
  * Design:
  *   - Never throws for per-page errors; they accumulate in the RunReport.
@@ -67,7 +67,7 @@ export interface SyncOptions {
   }>;
   /** Progress callback. */
   onProgress?: (e: ProgressEvent) => void;
-  /** Override state DB path (default: `<outDir>/sheaf.db`). */
+  /** Override state DB path (default: `<outDir>/vaultweave.db`). */
   stateDbPath?: string;
 }
 
@@ -98,7 +98,7 @@ export interface SyncDeps {
 // ── TOMBSTONE_MARKER ──────────────────────────────────────────────────────────
 
 const TOMBSTONE_MARKER = (id: string) =>
-  `---\nsheaf_tombstone: true\nnotion_id: ${id}\n---\n\n` +
+  `---\nvaultweave_tombstone: true\nnotion_id: ${id}\n---\n\n` +
   `<!-- This page was deleted from Notion and is no longer backed up. -->\n`;
 
 // ── main ──────────────────────────────────────────────────────────────────────
@@ -376,7 +376,7 @@ export async function runSync(opts: SyncOptions, deps: SyncDeps = {}): Promise<R
 // ── helpers ───────────────────────────────────────────────────────────────────
 
 function addAccessLostMetadata(content: string, at: string): string {
-  const metadata = `sheaf_access_lost: true\nsheaf_access_lost_at: ${at}`;
+  const metadata = `vaultweave_access_lost: true\nvaultweave_access_lost_at: ${at}`;
   if (content.startsWith("---\n")) {
     const end = content.indexOf("\n---", 4);
     if (end >= 0) return `${content.slice(0, end)}\n${metadata}${content.slice(end)}`;
@@ -412,7 +412,7 @@ function summarize(c: RunCounts): string {
 
 /** Atomic (tmp + rename) so a monitor polling the file never reads half a report. */
 async function writeRunReport(outDir: string, report: RunReport): Promise<void> {
-  const path = join(outDir, ".sheaf-run-report.json");
+  const path = join(outDir, ".vaultweave-run-report.json");
   const tmp = `${path}.partial`;
   await writeFile(tmp, `${JSON.stringify(report, null, 2)}\n`, "utf8");
   await rename(tmp, path);

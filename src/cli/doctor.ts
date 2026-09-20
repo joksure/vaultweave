@@ -10,8 +10,8 @@ export function registerDoctor(program: Command): void {
     .description(
       "Check Node, token (reachability + content access), last run freshness, git and assets",
     )
-    .option("--token <token>", "Notion integration token (prefer the SHEAF_TOKEN env var)")
-    .option("--config <path>", "path to .sheaf.yaml")
+    .option("--token <token>", "Notion integration token (prefer the VAULTWEAVE_TOKEN env var)")
+    .option("--config <path>", "path to .vaultweave.yaml")
     .option("--out <dir>", "backup directory to inspect (default: config `out`)")
     .option("--git", "also verify git is ready for `--git` syncs")
     .option("--probe-rate-limit", "send a short request burst and look for HTTP 429s")
@@ -31,7 +31,7 @@ export function registerDoctor(program: Command): void {
         deep?: boolean;
         json?: boolean;
       }) => {
-        let token = opts.token ?? process.env.SHEAF_TOKEN;
+        let token = opts.token ?? process.env.VAULTWEAVE_TOKEN;
         let outDir = opts.out;
         let useGit = opts.git;
         let intervalMs: number | undefined;
@@ -43,7 +43,7 @@ export function registerDoctor(program: Command): void {
           if (config.interval) intervalMs = parseDuration(config.interval);
         } catch (err) {
           if (!(err instanceof ConfigError)) throw err;
-          // A broken config is itself a finding; SHEAF_TOKEN alone can still be checked.
+          // A broken config is itself a finding; VAULTWEAVE_TOKEN alone can still be checked.
           process.stderr.write(`⚠ ${err.message}\n`);
         }
 

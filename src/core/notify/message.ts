@@ -4,7 +4,7 @@ import type { RunIssue } from "../state/report.js";
 import type { NotifyEvent } from "./types.js";
 
 export interface EventMessage {
-  /** One line, e.g. "sheaf backup FAILED (3 in a row)". */
+  /** One line, e.g. "vaultweave backup FAILED (3 in a row)". */
   title: string;
   /** One or two sentences: what happened. */
   summary: string;
@@ -46,10 +46,12 @@ export function buildMessage(event: NotifyEvent, secrets: readonly string[] = []
     details.push(`progress before failure: ${stats}, ${c.apiRequests} API requests`);
     for (const i of report.errors.slice(0, MAX_ISSUES)) details.push(issueLine(i, secrets));
     if (report.errors.length > MAX_ISSUES) {
-      details.push(`…and ${report.errors.length - MAX_ISSUES} more (see .sheaf-run-report.json)`);
+      details.push(
+        `…and ${report.errors.length - MAX_ISSUES} more (see .vaultweave-run-report.json)`,
+      );
     }
     const streak = ` (${event.failureStreak} in a row)`;
-    return { title: `sheaf backup FAILED${streak}`, summary: reason, details, ok: false };
+    return { title: `vaultweave backup FAILED${streak}`, summary: reason, details, ok: false };
   }
 
   details.push(`host: ${event.host}`, `started: ${report.startedAt}`);
@@ -58,11 +60,11 @@ export function buildMessage(event: NotifyEvent, secrets: readonly string[] = []
 
   if (kind === "recovered") {
     return {
-      title: "sheaf backup RECOVERED",
+      title: "vaultweave backup RECOVERED",
       summary: `Back to normal after ${event.previousFailures} failed run(s): ${stats} in ${took}.`,
       details,
       ok: true,
     };
   }
-  return { title: "sheaf backup OK", summary: `${stats} in ${took}.`, details, ok: true };
+  return { title: "vaultweave backup OK", summary: `${stats} in ${took}.`, details, ok: true };
 }

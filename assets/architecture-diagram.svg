@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" role="img" aria-labelledby="arch-title">
+  <title id="arch-title">vaultweave architecture: Notion API to Extractor to Normalizer to Renderers to Sync Targets</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f1e1a"/>
+      <stop offset="1" stop-color="#0c1512"/>
+    </linearGradient>
+    <linearGradient id="box-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c2f28"/>
+      <stop offset="1" stop-color="#152720"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f0b45b"/>
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#55d6be"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="440" fill="url(#bg)" rx="12"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.06" stroke="#55d6be" stroke-width="0.5">
+    <line x1="0" y1="88" x2="900" y2="88"/>
+    <line x1="0" y1="176" x2="900" y2="176"/>
+    <line x1="0" y1="264" x2="900" y2="264"/>
+    <line x1="0" y1="352" x2="900" y2="352"/>
+  </g>
+
+  <!-- Title -->
+  <text x="450" y="38" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+        font-size="18" font-weight="700" text-anchor="middle" letter-spacing="2">ARCHITECTURE</text>
+  <line x1="300" y1="46" x2="600" y2="46" stroke="#55d6be" stroke-width="1" opacity="0.4"/>
+
+  <!-- ROW 1: Notion API → Extractor → Normalizer (IR) -->
+
+  <!-- Box: Notion API -->
+  <g transform="translate(30, 70)">
+    <rect width="150" height="72" rx="10" fill="url(#box-grad)" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="75" y="28" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">NOTION API</text>
+    <text x="75" y="46" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">pages · databases</text>
+    <text x="75" y="61" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">files · views</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <line x1="183" y1="106" x2="225" y2="106" stroke="#f0b45b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="204" y="98" fill="#4a6b60" font-family="Arial, Helvetica, sans-serif"
+        font-size="10" text-anchor="middle">3 req/s</text>
+
+  <!-- Box: Extractor -->
+  <g transform="translate(228, 70)">
+    <rect width="150" height="72" rx="10" fill="url(#box-grad)" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="75" y="28" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">EXTRACTOR</text>
+    <text x="75" y="46" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">rate-limit safe</text>
+    <text x="75" y="61" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">retry + pagination</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <line x1="381" y1="106" x2="423" y2="106" stroke="#f0b45b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box: Normalizer IR -->
+  <g transform="translate(426, 70)">
+    <rect width="150" height="72" rx="10" fill="url(#box-grad)" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="75" y="28" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">NORMALIZER (IR)</text>
+    <text x="75" y="46" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">internal repr.</text>
+    <text x="75" y="61" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">relations resolved</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <line x1="579" y1="106" x2="621" y2="106" stroke="#f0b45b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Box: Renderers -->
+  <g transform="translate(624, 70)">
+    <rect width="150" height="72" rx="10" fill="url(#box-grad)" stroke="#f0b45b" stroke-width="1.5"/>
+    <text x="75" y="28" fill="#f0b45b" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">RENDERERS</text>
+    <text x="75" y="46" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">md · csv · json</text>
+    <text x="75" y="61" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">+ asset copies</text>
+  </g>
+
+  <!-- Down arrow from Normalizer to State DB -->
+  <line x1="501" y1="142" x2="501" y2="186" stroke="#55d6be" stroke-width="1.5"
+        stroke-dasharray="4 3" marker-end="url(#arrow-teal)"/>
+
+  <!-- State DB box (centered below normalizer) -->
+  <g transform="translate(390, 188)">
+    <rect width="220" height="60" rx="10" fill="#131f1c" stroke="#55d6be" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <text x="110" y="24" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">SQLite STATE DB</text>
+    <text x="110" y="42" fill="#4a6b60" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">cursors · hashes · relations</text>
+  </g>
+
+  <!-- Down arrow from Renderers to Sync Targets -->
+  <line x1="699" y1="142" x2="699" y2="248" stroke="#f0b45b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- SYNC TARGETS label -->
+  <text x="450" y="278" fill="#e9f5f1" font-family="Arial, Helvetica, sans-serif"
+        font-size="14" font-weight="700" text-anchor="middle" letter-spacing="2">SYNC TARGETS</text>
+  <line x1="240" y1="285" x2="660" y2="285" stroke="#55d6be" stroke-width="1" opacity="0.3"/>
+
+  <!-- Target boxes row -->
+  <!-- FS -->
+  <g transform="translate(80, 298)">
+    <rect width="130" height="64" rx="10" fill="url(#box-grad)" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="65" y="24" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle">FILESYSTEM</text>
+    <text x="65" y="42" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">--out ./backup</text>
+    <text x="65" y="57" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">incremental writes</text>
+  </g>
+
+  <!-- GIT -->
+  <g transform="translate(240, 298)">
+    <rect width="130" height="64" rx="10" fill="url(#box-grad)" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="65" y="24" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle">GIT</text>
+    <text x="65" y="42" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">auto-commit</text>
+    <text x="65" y="57" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">point-in-time history</text>
+  </g>
+
+  <!-- S3 -->
+  <g transform="translate(400, 298)">
+    <rect width="130" height="64" rx="10" fill="url(#box-grad)" stroke="#55d6be" stroke-width="1.5"/>
+    <text x="65" y="24" fill="#55d6be" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle">S3 / R2 / MinIO</text>
+    <text x="65" y="42" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">AWS cred chain</text>
+    <text x="65" y="57" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">hash-deduplicated</text>
+  </g>
+
+  <!-- Notifier -->
+  <g transform="translate(560, 298)">
+    <rect width="130" height="64" rx="10" fill="url(#box-grad)" stroke="#f0b45b" stroke-width="1.5"/>
+    <text x="65" y="24" fill="#f0b45b" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle">NOTIFIER</text>
+    <text x="65" y="42" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">webhook · slack</text>
+    <text x="65" y="57" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">discord · email</text>
+  </g>
+
+  <!-- CI/Actions box -->
+  <g transform="translate(720, 298)">
+    <rect width="130" height="64" rx="10" fill="url(#box-grad)" stroke="#4a6b60" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <text x="65" y="24" fill="#8fbfb4" font-family="Arial, Helvetica, sans-serif"
+          font-size="11" font-weight="700" text-anchor="middle">GITHUB ACTIONS</text>
+    <text x="65" y="42" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">scheduled daily</text>
+    <text x="65" y="57" fill="#6b9b8f" font-family="'Courier New', monospace"
+          font-size="11" text-anchor="middle">template included</text>
+  </g>
+
+  <!-- Connecting lines to targets from renderer output area -->
+  <line x1="145" y1="248" x2="145" y2="298" stroke="#55d6be" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+  <line x1="305" y1="248" x2="305" y2="298" stroke="#55d6be" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+  <line x1="465" y1="248" x2="465" y2="298" stroke="#55d6be" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+  <line x1="625" y1="248" x2="625" y2="298" stroke="#f0b45b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="785" y1="248" x2="785" y2="298" stroke="#4a6b60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow-teal)"/>
+
+  <!-- Horizontal line connecting all downward arrows at y=248 -->
+  <line x1="145" y1="248" x2="785" y2="248" stroke="#2a3d36" stroke-width="1.5"/>
+
+  <!-- Legend -->
+  <g transform="translate(30, 410)" font-family="Arial, Helvetica, sans-serif" font-size="12">
+    <line x1="0" y1="8" x2="20" y2="8" stroke="#55d6be" stroke-width="2"/>
+    <text x="26" y="12" fill="#6b9b8f">data flow</text>
+    <line x1="100" y1="8" x2="120" y2="8" stroke="#f0b45b" stroke-width="2"/>
+    <text x="126" y="12" fill="#6b9b8f">alert flow</text>
+    <line x1="210" y1="8" x2="230" y2="8" stroke="#4a6b60" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="236" y="12" fill="#6b9b8f">optional / CI</text>
+  </g>
+</svg>

@@ -46,7 +46,7 @@ export async function postJson(
     try {
       const res = await doFetch(url, {
         method: "POST",
-        headers: { "content-type": "application/json", "user-agent": "sheaf", ...headers },
+        headers: { "content-type": "application/json", "user-agent": "vaultweave", ...headers },
         body: payload,
         redirect: "error",
         signal: AbortSignal.timeout(timeoutMs),

@@ -1,9 +1,9 @@
 /**
- * `sheaf watch` — daemon mode: a sync on an interval, forever.
+ * `vaultweave watch` — daemon mode: a sync on an interval, forever.
  *
  * Options:
  *   --interval <d>    e.g. 30m, 6h, 1d (minimum 1m; or `interval:` in the config)
- *   --out <dir>       output directory (default: config `out` or ./sheaf-backup)
+ *   --out <dir>       output directory (default: config `out` or ./vaultweave-backup)
  *   --git             auto-commit each run to Git
  *   --notify <t>      alert target for failures (repeatable), e.g. slack:https://hooks.slack.com/…
  *   --token, --config, --root, --no-row-bodies, --quiet   as for `sync`
@@ -125,7 +125,7 @@ export async function runWatchCommand(
         if (result.status === "skipped_locked") {
           const h = result.lockHolder;
           warn(
-            `skipped: another sheaf run holds the lock${h ? ` (pid ${h.pid} on ${h.host})` : ""}`,
+            `skipped: another vaultweave run holds the lock${h ? ` (pid ${h.pid} on ${h.host})` : ""}`,
           );
           return { ok: false, skipped: true };
         }
@@ -139,7 +139,7 @@ export async function runWatchCommand(
           }
           if (report.errors.length > MAX_LISTED) {
             warn(
-              `    … and ${report.errors.length - MAX_LISTED} more (see .sheaf-run-report.json)`,
+              `    … and ${report.errors.length - MAX_LISTED} more (see .vaultweave-run-report.json)`,
             );
           }
         }
@@ -175,15 +175,15 @@ export function registerWatch(program: Command): void {
       "Daemon mode: run a sync on an interval, retry early after failures, alert on failures",
     )
     .option("--interval <duration>", "time between runs, e.g. 30m, 6h, 1d (minimum 1m)")
-    .option("--token <token>", "Notion integration token (prefer the SHEAF_TOKEN env var)")
-    .option("--out <dir>", "output directory (default: config `out` or ./sheaf-backup)")
+    .option("--token <token>", "Notion integration token (prefer the VAULTWEAVE_TOKEN env var)")
+    .option("--out <dir>", "output directory (default: config `out` or ./vaultweave-backup)")
     .option("--git", "auto-commit the output directory to Git after each run")
     .option(
       "--notify <target>",
       "alert target for failures, e.g. slack:https://… (repeatable; overrides config notify.on_error)",
       (v: string, prev: string[] = []) => [...prev, v],
     )
-    .option("--config <path>", "path to .sheaf.yaml")
+    .option("--config <path>", "path to .vaultweave.yaml")
     .option("--no-row-bodies", "skip the page bodies of database rows (faster)")
     .option("--quiet", "only log problems")
     .option(

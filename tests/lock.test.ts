@@ -8,7 +8,7 @@ let dir: string;
 const lockPath = () => join(dir, LOCK_FILENAME);
 
 beforeEach(async () => {
-  dir = await mkdtemp(join(tmpdir(), "sheaf-lock-"));
+  dir = await mkdtemp(join(tmpdir(), "vaultweave-lock-"));
 });
 afterEach(async () => {
   await rm(dir, { recursive: true, force: true });

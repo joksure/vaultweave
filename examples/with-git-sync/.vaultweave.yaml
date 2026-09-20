@@ -1,5 +1,5 @@
 # Sync into a Git repository, skip private areas, strip emails, alert on failure.
-token: ${SHEAF_TOKEN}
+token: ${VAULTWEAVE_TOKEN}
 out: ./notion-backup
 git: true
 interval: 6h
