@@ -1,0 +1,11 @@
+# Sync into a Git repository, skip private areas, strip emails, alert on failure.
+token: ${SHEAF_TOKEN}
+out: ./notion-backup
+git: true
+interval: 6h
+ignore:
+  - "Private/**"
+redact: ['\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b']
+notify:
+  on_error: webhook:${ERROR_WEBHOOK}
+  on_success: silent

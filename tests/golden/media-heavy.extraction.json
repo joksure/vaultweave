@@ -1,0 +1,792 @@
+{
+  "assets": [
+    {
+      "bytes": 400,
+      "mime": "image/svg+xml",
+      "name": "logo.svg",
+      "path": "assets/692faf1a4a25387b-logo.svg",
+      "sha256": "692faf1a4a25387bbf101225aec51a2463d0bd7dc22aec688d2097ef329e2a03"
+    },
+    {
+      "bytes": 4096,
+      "mime": "application/pdf",
+      "name": "guide.pdf",
+      "path": "assets/71a72dfbe9ff9d28-guide.pdf",
+      "sha256": "71a72dfbe9ff9d28c1862d4f5b7aec111825195816a2c0229c3535594f3a60f4"
+    },
+    {
+      "bytes": 4096,
+      "mime": "application/pdf",
+      "name": "manual.pdf",
+      "path": "assets/71a72dfbe9ff9d28-manual.pdf",
+      "sha256": "71a72dfbe9ff9d28c1862d4f5b7aec111825195816a2c0229c3535594f3a60f4"
+    },
+    {
+      "bytes": 2048,
+      "mime": "image/png",
+      "name": "photo-a-copy.png",
+      "path": "assets/77ab521b5970e767-photo-a-copy.png",
+      "sha256": "77ab521b5970e767d940adaef45c792ca79e1f596c1399a27b9cd381a28faacf"
+    },
+    {
+      "bytes": 2048,
+      "mime": "image/png",
+      "name": "photo-a.png",
+      "path": "assets/77ab521b5970e767-photo-a.png",
+      "sha256": "77ab521b5970e767d940adaef45c792ca79e1f596c1399a27b9cd381a28faacf"
+    },
+    {
+      "bytes": 250,
+      "mime": "image/png",
+      "name": "callout-icon.png",
+      "path": "assets/9616cad796e65d23-callout-icon.png",
+      "sha256": "9616cad796e65d239ad561fe7b075a6788318bc42499d4193905f97d24ebf169"
+    },
+    {
+      "bytes": 300,
+      "mime": "image/png",
+      "name": "icon.png",
+      "path": "assets/9848476879906a96-icon.png",
+      "sha256": "9848476879906a9648f318e7410725032ecda58006a97e0a09348c82d53ecf5a"
+    },
+    {
+      "bytes": 700,
+      "mime": "application/pdf",
+      "name": "Résumé 日本語.pdf",
+      "path": "assets/a6b9cfa1f77f670e-Résumé 日本語.pdf",
+      "sha256": "a6b9cfa1f77f670efeb99042bc1b7967eb3df51db57c13a0b16cfda90a5df0bc"
+    },
+    {
+      "bytes": 1200,
+      "mime": "image/jpeg",
+      "name": "cover.jpg",
+      "path": "assets/a834a60492ccb597-cover.jpg",
+      "sha256": "a834a60492ccb597411c745f5e1fa51b341282565380ff6fcf3fca3f42982b6b"
+    },
+    {
+      "bytes": 1100,
+      "mime": "image/png",
+      "name": "press.png",
+      "path": "assets/c267ae6a5bb46ae6-press.png",
+      "sha256": "c267ae6a5bb46ae6c4ecad3272394b84874bf3c42e288a3953f791ebba20bd20"
+    },
+    {
+      "bytes": 200,
+      "mime": "application/octet-stream",
+      "name": "../../etc/passwd",
+      "path": "assets/d0e11f57aff0f564-passwd",
+      "sha256": "d0e11f57aff0f564ac7330152aa5f31aafc6c809080b9213fc75bc277ba9df30"
+    },
+    {
+      "bytes": 900,
+      "mime": "image/jpeg",
+      "name": "brand-cover.jpg",
+      "path": "assets/d8fad74cef0dcc92-brand-cover.jpg",
+      "sha256": "d8fad74cef0dcc92fcfb58168541432dd11e95e0b0622d9c868bf8ee6a8f0bcc"
+    },
+    {
+      "bytes": 3000,
+      "mime": "application/pdf",
+      "name": "Report Q1.pdf",
+      "path": "assets/d9a234a99f14f081-Report Q1.pdf",
+      "sha256": "d9a234a99f14f081be0b69590f4a4b2c67e042c5109ce19c0c84bd2778a5b46a"
+    },
+    {
+      "bytes": 8192,
+      "mime": "video/mp4",
+      "name": "clip.mp4",
+      "path": "assets/ebd627fda602a42e-clip.mp4",
+      "sha256": "ebd627fda602a42e60cdeffb6ce73bb189851fc75985eca3a10f0a036f3324b7"
+    },
+    {
+      "bytes": 1500,
+      "mime": "audio/mpeg",
+      "name": "note.mp3",
+      "path": "assets/ef704be790783f83-note.mp3",
+      "sha256": "ef704be790783f830d49a0e15b2f44505b5811a3cb3dfe6c5f157d304f5c153e"
+    }
+  ],
+  "databases": [
+    {
+      "archived": false,
+      "cover": null,
+      "created_time": "2026-01-01T00:03:00.000Z",
+      "data_sources": [
+        {
+          "archived": false,
+          "created_time": "2026-01-01T00:05:00.000Z",
+          "database_parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "description": [],
+          "icon": null,
+          "id": "44444444-0000-4000-8000-000000000001",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:06:00.000Z",
+          "name": "Assets",
+          "object": "data_source",
+          "parent": { "database_id": "33333333-0000-4000-8000-000000000001", "type": "database_id" },
+          "properties": {
+            "Files": { "files": {}, "id": "fil", "name": "Files", "type": "files" },
+            "Name": { "id": "title", "name": "Name", "title": {}, "type": "title" }
+          },
+          "rows": [
+            {
+              "archived": false,
+              "blocks": [],
+              "cover": {
+                "file": {
+                  "asset": {
+                    "bytes": 900,
+                    "mime": "image/jpeg",
+                    "name": "brand-cover.jpg",
+                    "path": "assets/d8fad74cef0dcc92-brand-cover.jpg",
+                    "sha256": "d8fad74cef0dcc92fcfb58168541432dd11e95e0b0622d9c868bf8ee6a8f0bcc"
+                  },
+                  "source": "https://files.fixture.test/f/brand-cover.jpg"
+                },
+                "type": "file"
+              },
+              "created_time": "2026-01-01T00:33:00.000Z",
+              "icon": null,
+              "id": "11111111-0000-4000-8000-000000000002",
+              "in_trash": false,
+              "last_edited_time": "2026-01-01T00:34:00.000Z",
+              "object": "page",
+              "parent": {
+                "data_source_id": "44444444-0000-4000-8000-000000000001",
+                "database_id": "33333333-0000-4000-8000-000000000001",
+                "type": "data_source_id"
+              },
+              "properties": {
+                "Files": {
+                  "files": [
+                    {
+                      "file": {
+                        "asset": {
+                          "bytes": 400,
+                          "mime": "image/svg+xml",
+                          "name": "logo.svg",
+                          "path": "assets/692faf1a4a25387b-logo.svg",
+                          "sha256": "692faf1a4a25387bbf101225aec51a2463d0bd7dc22aec688d2097ef329e2a03"
+                        },
+                        "source": "https://files.fixture.test/f/logo.svg"
+                      },
+                      "name": "logo.svg",
+                      "type": "file"
+                    },
+                    {
+                      "file": {
+                        "asset": {
+                          "bytes": 4096,
+                          "mime": "application/pdf",
+                          "name": "guide.pdf",
+                          "path": "assets/71a72dfbe9ff9d28-guide.pdf",
+                          "sha256": "71a72dfbe9ff9d28c1862d4f5b7aec111825195816a2c0229c3535594f3a60f4"
+                        },
+                        "source": "https://files.fixture.test/f/guide-copy.pdf"
+                      },
+                      "name": "guide.pdf",
+                      "type": "file"
+                    }
+                  ],
+                  "id": "fil",
+                  "type": "files"
+                },
+                "Name": {
+                  "id": "title",
+                  "title": [
+                    {
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false
+                      },
+                      "href": null,
+                      "plain_text": "Brand kit",
+                      "text": { "content": "Brand kit", "link": null },
+                      "type": "text"
+                    }
+                  ],
+                  "type": "title"
+                }
+              },
+              "public_url": null,
+              "title": "Brand kit",
+              "url": "https://www.notion.so/11111111000040008000000000000002"
+            },
+            {
+              "archived": false,
+              "blocks": [],
+              "cover": null,
+              "created_time": "2026-01-01T00:35:00.000Z",
+              "icon": null,
+              "id": "11111111-0000-4000-8000-000000000003",
+              "in_trash": false,
+              "last_edited_time": "2026-01-01T00:36:00.000Z",
+              "object": "page",
+              "parent": {
+                "data_source_id": "44444444-0000-4000-8000-000000000001",
+                "database_id": "33333333-0000-4000-8000-000000000001",
+                "type": "data_source_id"
+              },
+              "properties": {
+                "Files": {
+                  "files": [
+                    {
+                      "file": {
+                        "asset": {
+                          "bytes": 1100,
+                          "mime": "image/png",
+                          "name": "press.png",
+                          "path": "assets/c267ae6a5bb46ae6-press.png",
+                          "sha256": "c267ae6a5bb46ae6c4ecad3272394b84874bf3c42e288a3953f791ebba20bd20"
+                        },
+                        "source": "https://files.fixture.test/f/press.png"
+                      },
+                      "name": "press.png",
+                      "type": "file"
+                    }
+                  ],
+                  "id": "fil",
+                  "type": "files"
+                },
+                "Name": {
+                  "id": "title",
+                  "title": [
+                    {
+                      "annotations": {
+                        "bold": false,
+                        "code": false,
+                        "color": "default",
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false
+                      },
+                      "href": null,
+                      "plain_text": "Press photos",
+                      "text": { "content": "Press photos", "link": null },
+                      "type": "text"
+                    }
+                  ],
+                  "type": "title"
+                }
+              },
+              "public_url": null,
+              "title": "Press photos",
+              "url": "https://www.notion.so/11111111000040008000000000000003"
+            }
+          ],
+          "title": [
+            {
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "strikethrough": false,
+                "underline": false
+              },
+              "href": null,
+              "plain_text": "Assets",
+              "text": { "content": "Assets", "link": null },
+              "type": "text"
+            }
+          ]
+        }
+      ],
+      "description": [],
+      "icon": null,
+      "id": "33333333-0000-4000-8000-000000000001",
+      "in_trash": false,
+      "is_inline": false,
+      "last_edited_time": "2026-01-01T00:04:00.000Z",
+      "name": "Assets",
+      "object": "database",
+      "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+      "public_url": null,
+      "title": [
+        {
+          "annotations": {
+            "bold": false,
+            "code": false,
+            "color": "default",
+            "italic": false,
+            "strikethrough": false,
+            "underline": false
+          },
+          "href": null,
+          "plain_text": "Assets",
+          "text": { "content": "Assets", "link": null },
+          "type": "text"
+        }
+      ],
+      "url": "https://www.notion.so/33333333000040008000000000000001",
+      "views": [
+        {
+          "configuration": { "type": "gallery" },
+          "created_time": "2026-01-01T00:37:00.000Z",
+          "data_source_id": "44444444-0000-4000-8000-000000000001",
+          "filter": null,
+          "id": "55555555-0000-4000-8000-000000000001",
+          "last_edited_time": "2026-01-01T00:38:00.000Z",
+          "name": "Gallery view",
+          "object": "view",
+          "parent": { "database_id": "33333333-0000-4000-8000-000000000001", "type": "database_id" },
+          "quick_filters": null,
+          "sorts": [],
+          "type": "gallery",
+          "url": "https://www.notion.so/33333333000040008000000000000001?v=55555555000040008000000000000001"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "ok": true,
+  "pages": [
+    {
+      "archived": false,
+      "blocks": [
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:07:00.000Z",
+          "has_children": false,
+          "heading_1": {
+            "color": "default",
+            "is_toggleable": false,
+            "rich_text": [
+              {
+                "annotations": {
+                  "bold": false,
+                  "code": false,
+                  "color": "default",
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false
+                },
+                "href": null,
+                "plain_text": "Photos",
+                "text": { "content": "Photos", "link": null },
+                "type": "text"
+              }
+            ]
+          },
+          "id": "22222222-0000-4000-8000-000000000001",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:08:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "heading_1"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:09:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000002",
+          "image": {
+            "caption": [
+              {
+                "annotations": {
+                  "bold": false,
+                  "code": false,
+                  "color": "default",
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false
+                },
+                "href": null,
+                "plain_text": "First photo",
+                "text": { "content": "First photo", "link": null },
+                "type": "text"
+              }
+            ],
+            "file": {
+              "asset": {
+                "bytes": 2048,
+                "mime": "image/png",
+                "name": "photo-a.png",
+                "path": "assets/77ab521b5970e767-photo-a.png",
+                "sha256": "77ab521b5970e767d940adaef45c792ca79e1f596c1399a27b9cd381a28faacf"
+              },
+              "source": "https://files.fixture.test/f/photo-a.png"
+            },
+            "type": "file"
+          },
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:10:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "image"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:11:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000003",
+          "image": {
+            "caption": [],
+            "file": {
+              "asset": {
+                "bytes": 2048,
+                "mime": "image/png",
+                "name": "photo-a-copy.png",
+                "path": "assets/77ab521b5970e767-photo-a-copy.png",
+                "sha256": "77ab521b5970e767d940adaef45c792ca79e1f596c1399a27b9cd381a28faacf"
+              },
+              "source": "https://files.fixture.test/f/photo-a-copy.png"
+            },
+            "type": "file"
+          },
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:12:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "image"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:13:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000004",
+          "image": {
+            "caption": [],
+            "external": { "url": "https://example.com/remote.png" },
+            "type": "external"
+          },
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:14:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "image"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:15:00.000Z",
+          "file": {
+            "caption": [],
+            "file": {
+              "asset": {
+                "bytes": 3000,
+                "mime": "application/pdf",
+                "name": "Report Q1.pdf",
+                "path": "assets/d9a234a99f14f081-Report Q1.pdf",
+                "sha256": "d9a234a99f14f081be0b69590f4a4b2c67e042c5109ce19c0c84bd2778a5b46a"
+              },
+              "source": "https://files.fixture.test/f/report-q1.pdf"
+            },
+            "name": "Report Q1.pdf",
+            "type": "file"
+          },
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000005",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:16:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "file"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:17:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000006",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:18:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "pdf": {
+            "caption": [],
+            "file": {
+              "asset": {
+                "bytes": 4096,
+                "mime": "application/pdf",
+                "name": "manual.pdf",
+                "path": "assets/71a72dfbe9ff9d28-manual.pdf",
+                "sha256": "71a72dfbe9ff9d28c1862d4f5b7aec111825195816a2c0229c3535594f3a60f4"
+              },
+              "source": "https://files.fixture.test/f/manual.pdf"
+            },
+            "type": "file"
+          },
+          "type": "pdf"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:19:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000007",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:20:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "video",
+          "video": {
+            "caption": [],
+            "file": {
+              "asset": {
+                "bytes": 8192,
+                "mime": "video/mp4",
+                "name": "clip.mp4",
+                "path": "assets/ebd627fda602a42e-clip.mp4",
+                "sha256": "ebd627fda602a42e60cdeffb6ce73bb189851fc75985eca3a10f0a036f3324b7"
+              },
+              "source": "https://files.fixture.test/f/clip.mp4"
+            },
+            "type": "file"
+          }
+        },
+        {
+          "archived": false,
+          "audio": {
+            "caption": [],
+            "file": {
+              "asset": {
+                "bytes": 1500,
+                "mime": "audio/mpeg",
+                "name": "note.mp3",
+                "path": "assets/ef704be790783f83-note.mp3",
+                "sha256": "ef704be790783f830d49a0e15b2f44505b5811a3cb3dfe6c5f157d304f5c153e"
+              },
+              "source": "https://files.fixture.test/f/note.mp3"
+            },
+            "type": "file"
+          },
+          "children": [],
+          "created_time": "2026-01-01T00:21:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000008",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:22:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "audio"
+        },
+        {
+          "archived": false,
+          "callout": {
+            "color": "gray_background",
+            "icon": {
+              "file": {
+                "asset": {
+                  "bytes": 250,
+                  "mime": "image/png",
+                  "name": "callout-icon.png",
+                  "path": "assets/9616cad796e65d23-callout-icon.png",
+                  "sha256": "9616cad796e65d239ad561fe7b075a6788318bc42499d4193905f97d24ebf169"
+                },
+                "source": "https://files.fixture.test/f/callout-icon.png"
+              },
+              "type": "file"
+            },
+            "rich_text": [
+              {
+                "annotations": {
+                  "bold": false,
+                  "code": false,
+                  "color": "default",
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false
+                },
+                "href": null,
+                "plain_text": "Attachment note",
+                "text": { "content": "Attachment note", "link": null },
+                "type": "text"
+              }
+            ]
+          },
+          "children": [],
+          "created_time": "2026-01-01T00:23:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000009",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:24:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "callout"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:25:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000010",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:26:00.000Z",
+          "object": "block",
+          "paragraph": {
+            "color": "default",
+            "rich_text": [
+              {
+                "annotations": {
+                  "bold": false,
+                  "code": false,
+                  "color": "default",
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false
+                },
+                "href": null,
+                "plain_text": "Hostile and non-ASCII file names:",
+                "text": { "content": "Hostile and non-ASCII file names:", "link": null },
+                "type": "text"
+              }
+            ]
+          },
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "paragraph"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:27:00.000Z",
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000011",
+          "image": {
+            "caption": [],
+            "file": {
+              "asset": {
+                "bytes": 200,
+                "mime": "application/octet-stream",
+                "name": "../../etc/passwd",
+                "path": "assets/d0e11f57aff0f564-passwd",
+                "sha256": "d0e11f57aff0f564ac7330152aa5f31aafc6c809080b9213fc75bc277ba9df30"
+              },
+              "source": "https://files.fixture.test/f/..%2F..%2Fetc%2Fpasswd"
+            },
+            "type": "file"
+          },
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:28:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "image"
+        },
+        {
+          "archived": false,
+          "children": [],
+          "created_time": "2026-01-01T00:29:00.000Z",
+          "file": {
+            "caption": [],
+            "file": {
+              "asset": {
+                "bytes": 700,
+                "mime": "application/pdf",
+                "name": "Résumé 日本語.pdf",
+                "path": "assets/a6b9cfa1f77f670e-Résumé 日本語.pdf",
+                "sha256": "a6b9cfa1f77f670efeb99042bc1b7967eb3df51db57c13a0b16cfda90a5df0bc"
+              },
+              "source": "https://files.fixture.test/f/r%C3%A9sum%C3%A9.pdf"
+            },
+            "name": "Résumé 日本語.pdf",
+            "type": "file"
+          },
+          "has_children": false,
+          "id": "22222222-0000-4000-8000-000000000012",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:30:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "file"
+        },
+        {
+          "archived": false,
+          "child_database": { "title": "Assets" },
+          "children": [],
+          "created_time": "2026-01-01T00:31:00.000Z",
+          "has_children": true,
+          "id": "33333333-0000-4000-8000-000000000001",
+          "in_trash": false,
+          "last_edited_time": "2026-01-01T00:32:00.000Z",
+          "object": "block",
+          "parent": { "page_id": "11111111-0000-4000-8000-000000000001", "type": "page_id" },
+          "type": "child_database"
+        }
+      ],
+      "cover": {
+        "file": {
+          "asset": {
+            "bytes": 1200,
+            "mime": "image/jpeg",
+            "name": "cover.jpg",
+            "path": "assets/a834a60492ccb597-cover.jpg",
+            "sha256": "a834a60492ccb597411c745f5e1fa51b341282565380ff6fcf3fca3f42982b6b"
+          },
+          "source": "https://files.fixture.test/f/cover.jpg"
+        },
+        "type": "file"
+      },
+      "created_time": "2026-01-01T00:01:00.000Z",
+      "icon": {
+        "file": {
+          "asset": {
+            "bytes": 300,
+            "mime": "image/png",
+            "name": "icon.png",
+            "path": "assets/9848476879906a96-icon.png",
+            "sha256": "9848476879906a9648f318e7410725032ecda58006a97e0a09348c82d53ecf5a"
+          },
+          "source": "https://files.fixture.test/f/icon.png"
+        },
+        "type": "file"
+      },
+      "id": "11111111-0000-4000-8000-000000000001",
+      "in_trash": false,
+      "last_edited_time": "2026-01-01T00:02:00.000Z",
+      "object": "page",
+      "parent": { "type": "workspace", "workspace": true },
+      "properties": {
+        "title": {
+          "id": "title",
+          "title": [
+            {
+              "annotations": {
+                "bold": false,
+                "code": false,
+                "color": "default",
+                "italic": false,
+                "strikethrough": false,
+                "underline": false
+              },
+              "href": null,
+              "plain_text": "Gallery",
+              "text": { "content": "Gallery", "link": null },
+              "type": "text"
+            }
+          ],
+          "type": "title"
+        }
+      },
+      "public_url": null,
+      "title": "Gallery",
+      "url": "https://www.notion.so/11111111000040008000000000000001"
+    }
+  ],
+  "stats": {
+    "assetBytes": 30030,
+    "assetUrlRefreshes": 0,
+    "assetsDownloaded": 15,
+    "counts": {
+      "assets": 15,
+      "blocks": 13,
+      "dataSources": 1,
+      "databases": 1,
+      "pages": 1,
+      "rows": 2,
+      "views": 1
+    },
+    "failures": 0,
+    "rateLimited": 0,
+    "requests": 9,
+    "retries": 0
+  },
+  "warnings": []
+}
