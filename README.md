@@ -28,7 +28,7 @@ incrementally into a folder and, optionally, a Git repository or S3 bucket.
 > **Known gaps, stated plainly:**
 >
 > - `backup` and `verify` are not implemented (exit code 2).
-> - Every sync still re-reads the whole workspace from Notion; only *writing* is
+> - Every sync still re-reads the whole workspace from Notion; only _writing_ is
 >   incremental. A run costs the same number of API requests as a full one.
 > - `ignore:` and `redact:` are accepted in the config but **not applied yet** —
 >   do not rely on them to keep data out of your backup.
@@ -43,11 +43,11 @@ incrementally into a folder and, optionally, a Git repository or S3 bucket.
 
 ![Problems vaultweave solves](assets/why-banner.svg)
 
-Notion is where your team thinks. But getting your data *out* — reliably,
+Notion is where your team thinks. But getting your data _out_ — reliably,
 automatically, in a format that survives anything — is harder than it should be:
 
 - **No scheduled backups.** Notion's own docs answer "Is there a way to schedule
-  automatic backups?" with *"Not at the moment."*
+  automatic backups?" with _"Not at the moment."_
 - **Manual export only.** The export link arrives by email, **expires after 7
   days**, can take up to 30 hours to generate, and large workspaces sometimes
   fail entirely.
@@ -97,7 +97,7 @@ failure is loud:
   run holds the lock.
 - **Alerts:** `--notify` (repeatable) or `notify.on_error` in the config. Targets:
   `webhook:<url>` (JSON), `slack:<url>`, `discord:<url>`. Alerts fire on the 1st
-  consecutive failure, then the 2nd, 4th, 8th…, and one *recovered* notice
+  consecutive failure, then the 2nd, 4th, 8th…, and one _recovered_ notice
   follows the next success. Alert text contains counts and error codes — never
   page content — and webhook URLs and tokens are scrubbed from every message and
   log line.
@@ -141,16 +141,15 @@ without stopping the other files.
 
 ![vaultweave capability matrix](assets/capability-matrix.svg)
 
-✅ = written by `sync` today · 🚧 = not complete yet · ⚠️ = limited by the Notion API
+✅ = written by `sync` today · 🧪 = extracted by the experimental `extract` command, not exported yet · 🚧 = planned · ⚠️ = limited by the Notion API
 
-| Content                                 | Output                                     | Status       |
-| --------------------------------------- | ------------------------------------------ | ------------ |
-| Pages & nested blocks                   | `path/to/page.md` + YAML frontmatter       | ✅            |
-| Databases (schema + rows)               | `db.csv` + `db.json` (relations preserved) | ✅            |
-| Images / files / attachments            | `assets/` (re-hosted copies)               | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
-| Comments                                | `page.comments.md`                         | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
+| Images / files / attachments | `assets/` (re-hosted copies) | ✅ |
+| Comments | `page.comments.md` | 🚧 planned |
+| Database views (table/board/calendar/…) | view definitions as JSON (`db.views.json`) | 🧪 extracted only; export planned |
+| Images / files / attachments | `assets/` (re-hosted copies) | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
+| Comments | `page.comments.md` | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
 | Database views (table/board/calendar/…) | view definitions as JSON (`db.views.json`) | 🚧 <!-- VERIFY against CAPABILITIES.md --> |
-| Automations, button configs             | stub comment in output                     | ⚠️ API limit |
+| Automations, button configs | stub comment in output | ⚠️ API limit |
 
 We never claim "full backup". The complete, machine-checked matrix lives in
 [CAPABILITIES.md](CAPABILITIES.md), and anything not exported is marked
@@ -166,7 +165,7 @@ We never claim "full backup". The complete, machine-checked matrix lives in
 - **Point-in-time history** — with `--git`, every sync is a Git commit; roll back
   to any day.
 - **Zero silent failures** — structured run reports; failures alert your
-  webhook/Slack/Discord *before* the process exits non-zero.
+  webhook/Slack/Discord _before_ the process exits non-zero.
 - **Honest** — unsupported content is labelled, not dropped quietly.
 - **Agent-friendly output** — clean Markdown, no internal Notion noise; point
   Claude Code or Cursor at your backup repo and ask questions about your own notes.
@@ -194,12 +193,12 @@ or CI.
 Minimal `.vaultweave.yaml`:
 
 ```yaml
-token: ${VAULTWEAVE_TOKEN}        # env expansion supported
+token: ${VAULTWEAVE_TOKEN} # env expansion supported
 out: ./vaultweave-backup
-git: true                         # auto-commit per run
-interval: 6h                      # used by `vaultweave watch` (minimum 1m)
+git: true # auto-commit per run
+interval: 6h # used by `vaultweave watch` (minimum 1m)
 notify:
-  on_error: slack:${SLACK_WEBHOOK}      # one target, or a list of targets
+  on_error: slack:${SLACK_WEBHOOK} # one target, or a list of targets
   on_success: silent
 # `ignore:` and `redact:` are accepted but NOT APPLIED YET — see Security.
 ```
