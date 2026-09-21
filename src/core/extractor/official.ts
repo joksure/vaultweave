@@ -190,12 +190,10 @@ export class OfficialExtractor {
             start_cursor: cursor,
             ...(this.sinceTimestamp
               ? {
-                  // Only objects edited after the cursor: Notion drops everything older,
-                  // so an unchanged workspace costs one search call and nothing else.
-                  filter: {
-                    timestamp: "last_edited_time",
-                    last_edited_time: { after: this.sinceTimestamp },
-                  },
+                  // Sort by last_edited_time ascending so the most-stale objects come first.
+                  // Notion's search API no longer accepts a timestamp filter — incremental
+                  // filtering is done client-side via this.unchanged() after the full result
+                  // set is collected.
                   sort: { timestamp: "last_edited_time", direction: "ascending" },
                 }
               : {}),
