@@ -1,6 +1,6 @@
 {
   "name": "vaultweave",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Back up Notion to portable Markdown, CSV, JSON and assets, with Git history, watch mode, alerts and S3 targets.",
   "type": "module",
   "license": "MIT",

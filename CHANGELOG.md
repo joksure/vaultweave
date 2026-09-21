@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/joksure/vaultweave/compare/vaultweave-v1.0.0...vaultweave-v1.0.1) (2026-09-21)
+
+
+### Bug Fixes
+
+* remove invalid timestamp filter from Notion search API ([#13](https://github.com/joksure/vaultweave/issues/13)) ([c4db56d](https://github.com/joksure/vaultweave/commit/c4db56d9da3725dd83dac44faa9bf067c5aaed14))
+
 ## 1.0.0 (2026-09-20)
 
 
