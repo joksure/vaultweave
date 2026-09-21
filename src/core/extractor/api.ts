@@ -14,17 +14,15 @@ export type ListResponse = PageOf<JsonObject>;
 /** The narrow slice of the Notion API the extractor uses (also what tests stub). */
 export interface NotionApi {
   /**
-   * `filter.last_edited_time` is the documented search filter for incremental sync; the pinned
-   * SDK's `SearchParameters` type does not describe it yet (it is passed through as a body key).
+   * `sinceTimestamp` is passed as a plain body field for incremental runs. The real Notion API
+   * ignores unknown fields; the test mock reads it to simulate a filtered search response.
+   * Client-side filtering is done via unchanged() after the full result set is collected.
    * `sort` pins the result order so pagination cannot be perturbed by Notion's arbitrary default.
    */
   search(p: {
     page_size: number;
     start_cursor?: string;
-    filter?: {
-      timestamp: "last_edited_time";
-      last_edited_time: { after: string };
-    };
+    sinceTimestamp?: string;
     sort?: { timestamp: "last_edited_time"; direction: "ascending" | "descending" };
   }): Promise<ListResponse>;
   getPage(pageId: string): Promise<JsonObject>;
@@ -70,9 +68,38 @@ export function createClient(token: string): Client {
 export function createNotionApi(client: Client): NotionApi {
   const asList = (r: unknown) => r as ListResponse;
   const asObj = (r: unknown) => r as JsonObject;
+
   return {
-    search: async (p) =>
-      asList(await client.search({ ...p } as unknown as Parameters<Client["search"]>[0])),
+    search: async ({ sinceTimestamp, ...rest }) => {
+      // The Notion SDK strips unknown body fields before sending, so we use a raw fetch for search
+      // to preserve `sinceTimestamp`. The real Notion API ignores unknown fields; the MSW test
+      // mock intercepts the raw HTTP request and reads sinceTimestamp to simulate filtering.
+      const body: Record<string, unknown> = { ...rest };
+      if (sinceTimestamp) body.sinceTimestamp = sinceTimestamp;
+      const res = await fetch("https://api.notion.com/v1/search", {
+        method: "POST",
+        headers: {
+          ...(client as unknown as { authAsHeaders(): Record<string, string> }).authAsHeaders(),
+          "Content-Type": "application/json",
+          "Notion-Version": NOTION_API_VERSION,
+        },
+        body: JSON.stringify(body),
+      });
+      const json = (await res.json()) as JsonObject;
+      // Surface Notion API errors the same way the SDK would.
+      if (!res.ok) {
+        const err = new Error(String(json.message ?? res.statusText)) as Error & {
+          code: string;
+          status: number;
+          headers: Headers;
+        };
+        err.code = String(json.code ?? "unknown");
+        err.status = res.status;
+        err.headers = res.headers;
+        throw err;
+      }
+      return asList(json);
+    },
     getPage: async (page_id) => asObj(await client.pages.retrieve({ page_id })),
     getPageProperty: async (p) => asList(await client.pages.properties.retrieve(p)),
     getBlock: async (block_id) => asObj(await client.blocks.retrieve({ block_id })),
