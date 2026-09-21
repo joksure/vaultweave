@@ -17,9 +17,7 @@ import {
   createOfficialExtractor,
   type OfficialExtractorOptions,
 } from "../src/core/extractor/index.js";
-import { RequestExecutor } from "../src/core/extractor/executor.js";
 import { runSync, type SyncDeps } from "../src/core/pipeline.js";
-import { TokenBucket } from "../src/core/ratelimit.js";
 import { openStateDb } from "../src/core/state/index.js";
 import { docsHeavy } from "./fixtures/docs-heavy.js";
 import { createFakeNotion, type FakeOptions } from "./support/fake-notion.js";
@@ -58,11 +56,10 @@ function apiFixture(opts: FakeOptions = {}) {
 }
 
 /**
- * The default executor paces requests at ~2.5/s to respect Notion's real limit. Against the mock
- * that only makes each full sync take ~8s, so the tests use an effectively unthrottled bucket.
+ * The extractor paces requests at 2.5/s by default, which is Notion's real limit. Against the mock
+ * that only makes every full sync take ~8s, so the tests run with an effectively unthrottled bucket.
  */
-const fastExecutor = () =>
-  new RequestExecutor({ limiter: new TokenBucket({ ratePerSecond: 1_000_000, jitterMs: 0 }) });
+const UNTHROTTLED = 1_000_000;
 
 /**
  * The pipeline's real deps: the production extractor on the mocked API. Assets are redirected out
@@ -74,7 +71,7 @@ function deps(spy?: (o: { sinceTimestamp?: string }) => void): SyncDeps {
       const extractor = createOfficialExtractor({
         ...o,
         outDir: assetsDir,
-        executor: fastExecutor(),
+        ratePerSecond: UNTHROTTLED,
       } as unknown as OfficialExtractorOptions & { token: string; outDir: string });
       return {
         extract: (opts) => {
