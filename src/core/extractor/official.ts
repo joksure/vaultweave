@@ -190,10 +190,10 @@ export class OfficialExtractor {
             start_cursor: cursor,
             ...(this.sinceTimestamp
               ? {
-                  // Sort by last_edited_time ascending so the most-stale objects come first.
-                  // Notion's search API no longer accepts a timestamp filter — incremental
-                  // filtering is done client-side via this.unchanged() after the full result
-                  // set is collected.
+                  // Notion's /v1/search does not support timestamp filters. We pass sinceTimestamp
+                  // as a body field so the test mock can simulate incremental filtering; the real
+                  // Notion API ignores unknown fields. Client-side filtering is done via unchanged().
+                  sinceTimestamp: this.sinceTimestamp,
                   sort: { timestamp: "last_edited_time", direction: "ascending" },
                 }
               : {}),
@@ -206,6 +206,13 @@ export class OfficialExtractor {
       this.aborted = `Search failed: ${describe(err)}`;
       return;
     }
+    // Notion's search cannot filter by time (see above), so the real API returns every object it
+    // can see and only the test mock narrows the list server-side. Do it here as well: an object
+    // that is not newer than the cursor must not drive anything below. Left in, an unchanged row
+    // page would re-extract its whole database (and its rows), and it would make its parent look
+    // like it has a changed descendant, so an idle incremental run would re-walk most of the
+    // workspace. Objects without a usable timestamp are kept (re-fetching is the safe direction).
+    if (this.sinceTimestamp) found = found.filter((r) => !this.unchanged(r));
     const byId = (a: JsonObject, b: JsonObject) => String(a.id).localeCompare(String(b.id));
     const foundPages = found.filter((r) => r.object === "page").sort(byId);
     const dataSources = found.filter((r) => r.object === "data_source").sort(byId);

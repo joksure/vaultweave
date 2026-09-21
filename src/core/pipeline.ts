@@ -211,9 +211,14 @@ export async function runSync(opts: SyncOptions, deps: SyncDeps = {}): Promise<R
     // of last run's extraction (see `pagesUnchangedSkipped`).
     const incrementalPages = new Set(fetchedExtraction.pages.map((p) => p.id));
     // Page rows keep the full list of rows of their data source, so a database row that is not in
-    // `extraction.pages` may still have been refreshed from its data source's row list.
+    // `fetchedExtraction.pages` may still have been refreshed from its data source's row list.
+    // Read this from `fetchedExtraction`, not the merged `extraction`: the merge carries every
+    // cached database (and all of its rows) over from last run, which would make those rows look
+    // freshly fetched even when nothing was requested for them.
     const databaseRowIds = new Set(
-      extraction.databases.flatMap((d) => d.data_sources.flatMap((s) => s.rows.map((r) => r.id))),
+      fetchedExtraction.databases.flatMap((d) =>
+        d.data_sources.flatMap((s) => s.rows.map((r) => r.id)),
+      ),
     );
     const fetchedIds = new Set([...incrementalPages, ...databaseRowIds]);
     const incrementalPagesPartial = workspace.pages.some((p) => !fetchedIds.has(p.id));

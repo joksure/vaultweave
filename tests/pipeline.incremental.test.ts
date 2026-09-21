@@ -17,7 +17,9 @@ import {
   createOfficialExtractor,
   type OfficialExtractorOptions,
 } from "../src/core/extractor/index.js";
+import { RequestExecutor } from "../src/core/extractor/executor.js";
 import { runSync, type SyncDeps } from "../src/core/pipeline.js";
+import { TokenBucket } from "../src/core/ratelimit.js";
 import { openStateDb } from "../src/core/state/index.js";
 import { docsHeavy } from "./fixtures/docs-heavy.js";
 import { createFakeNotion, type FakeOptions } from "./support/fake-notion.js";
@@ -56,6 +58,13 @@ function apiFixture(opts: FakeOptions = {}) {
 }
 
 /**
+ * The default executor paces requests at ~2.5/s to respect Notion's real limit. Against the mock
+ * that only makes each full sync take ~8s, so the tests use an effectively unthrottled bucket.
+ */
+const fastExecutor = () =>
+  new RequestExecutor({ limiter: new TokenBucket({ ratePerSecond: 1_000_000, jitterMs: 0 }) });
+
+/**
  * The pipeline's real deps: the production extractor on the mocked API. Assets are redirected out
  * of the output directory. An optional spy observes the options the pipeline hands the extractor.
  */
@@ -65,6 +74,7 @@ function deps(spy?: (o: { sinceTimestamp?: string }) => void): SyncDeps {
       const extractor = createOfficialExtractor({
         ...o,
         outDir: assetsDir,
+        executor: fastExecutor(),
       } as unknown as OfficialExtractorOptions & { token: string; outDir: string });
       return {
         extract: (opts) => {
@@ -155,10 +165,10 @@ describe("incremental extraction", () => {
 
     expect(seen).toEqual([AFTER_FIXTURE]);
     expect(bodies).toHaveLength(1);
-    expect(bodies[0]?.filter).toEqual({
-      timestamp: "last_edited_time",
-      last_edited_time: { after: AFTER_FIXTURE },
-    });
+    // Notion's /v1/search does not support timestamp filters — sinceTimestamp is passed as a
+    // body field so the mock can simulate incremental filtering without the invalid filter.
+    expect(bodies[0]?.filter).toBeUndefined();
+    expect(bodies[0]?.sinceTimestamp).toBe(AFTER_FIXTURE);
     // The sort pins the order so pagination cannot be perturbed by Notion's arbitrary default.
     expect(bodies[0]?.sort).toEqual({ timestamp: "last_edited_time", direction: "ascending" });
   });

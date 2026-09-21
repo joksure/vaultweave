@@ -145,13 +145,12 @@ export function createFakeNotion(ws: FixtureWorkspace, opts: FakeOptions = {}) {
       let ids = [...ws.searchable];
       if (opts.searchOrder === "desc") ids = ids.reverse();
       let items = ids.map((id) => (ws.pages.get(id) ?? ws.dataSources.get(id)) as JsonObject);
-      const filter = body.filter as
-        | { timestamp?: string; last_edited_time?: { after?: string } }
-        | undefined;
-      const after =
-        filter?.timestamp === "last_edited_time" ? filter.last_edited_time?.after : undefined;
-      if (opts.honorSearchFilters && after) {
-        const cursor = Date.parse(after);
+      // Notion's /v1/search does not support timestamp filters — only `filter.property` is valid.
+      // The extractor signals an incremental run by passing `sinceTimestamp` in the body so the
+      // mock can simulate a filtered response without relying on the deprecated filter field.
+      const sinceTimestamp = (body as Record<string, unknown>).sinceTimestamp as string | undefined;
+      if (opts.honorSearchFilters && sinceTimestamp) {
+        const cursor = Date.parse(sinceTimestamp);
         // The real API only returns objects that *changed*; an object whose timestamp is at or
         // before the cursor is left out entirely.
         items = items.filter((o) => {
