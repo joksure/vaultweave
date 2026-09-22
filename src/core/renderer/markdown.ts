@@ -279,7 +279,9 @@ function renderBlock(block: IrBlock, ctx: RenderContext): string {
       if (rows.length === 0) return "";
       const rowLines = rows.map((row) => {
         if (row.type !== "table_row") return "";
-        const cells = row.cells.map((c) => renderRichText(c).replace(/\|/g, "\\|"));
+        const cells = row.cells.map((c) =>
+          renderRichText(c).replace(/\\/g, "\\\\").replace(/\|/g, "\\|"),
+        );
         return `| ${cells.join(" | ")} |`;
       });
       if (rowLines.length === 0) return "";
